@@ -28,7 +28,7 @@ class TvSeries extends Equatable {
   List<int>? genreIds;
   String? originalLanguage;
   int? voteCount;
-  String title;
+  String? title;
   String? originalName;
 
   TvSeries.watchlist({
