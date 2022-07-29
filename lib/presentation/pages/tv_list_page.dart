@@ -21,8 +21,8 @@ class _TvListPageState extends State<TvListPage> {
   void initState() {
     super.initState();
     Future.microtask(() => Provider.of<TvListNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies());
-    // ..fetchPopularMovies()
+      ..fetchNowPlayingTvSeries()
+      ..fetchPopularTvSeries());
     // ..fetchTopRatedMovies());
   }
 
@@ -63,23 +63,21 @@ class _TvListPageState extends State<TvListPage> {
                   return Text('Failed');
                 }
               }),
-              // _buildSubHeading(
-              //   title: 'Popular',
-              //   onTap: () =>
-              //       Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
-              // ),
-              // Consumer<MovieListNotifier>(builder: (context, data, child) {
-              //   final state = data.popularMoviesState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return MovieList(data.popularMovies);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
+              _buildSubHeading(title: 'Popular', onTap: () {}
+                  // Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+                  ),
+              Consumer<TvListNotifier>(builder: (context, data, child) {
+                final state = data.popularTVsState;
+                if (state == RequestState.Loading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state == RequestState.Loaded) {
+                  return TvSeriesList(data.popularTVs);
+                } else {
+                  return Text('Failed');
+                }
+              }),
               // _buildSubHeading(
               //   title: 'Top Rated',
               //   onTap: () =>

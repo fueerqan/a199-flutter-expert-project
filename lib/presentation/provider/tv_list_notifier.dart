@@ -1,6 +1,7 @@
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_now_playing_tv.dart';
+import 'package:ditonton/domain/usecases/get_popular_tv.dart';
 import 'package:flutter/material.dart';
 
 class TvListNotifier extends ChangeNotifier {
@@ -10,11 +11,11 @@ class TvListNotifier extends ChangeNotifier {
   RequestState _nowPlayingState = RequestState.Empty;
   RequestState get nowPlayingState => _nowPlayingState;
 
-  // var _popularMovies = <Movie>[];
-  // List<Movie> get popularMovies => _popularMovies;
+  var _popularTVs = <TvSeries>[];
+  List<TvSeries> get popularTVs => _popularTVs;
 
-  // RequestState _popularMoviesState = RequestState.Empty;
-  // RequestState get popularMoviesState => _popularMoviesState;
+  RequestState _popularTVsState = RequestState.Empty;
+  RequestState get popularTVsState => _popularTVsState;
 
   // var _topRatedMovies = <Movie>[];
   // List<Movie> get topRatedMovies => _topRatedMovies;
@@ -26,20 +27,20 @@ class TvListNotifier extends ChangeNotifier {
   String get message => _message;
 
   TvListNotifier({
-    required this.getNowPlayingMovies,
-    // required this.getPopularMovies,
+    required this.getNowPlayingTvs,
+    required this.getPopularTVs,
     // required this.getTopRatedMovies,
   });
 
-  final GetNowPlayingTv getNowPlayingMovies;
-  // final GetPopularMovies getPopularMovies;
+  final GetNowPlayingTv getNowPlayingTvs;
+  final GetPopularTv getPopularTVs;
   // final GetTopRatedMovies getTopRatedMovies;
 
-  Future<void> fetchNowPlayingMovies() async {
+  Future<void> fetchNowPlayingTvSeries() async {
     _nowPlayingState = RequestState.Loading;
     notifyListeners();
 
-    final result = await getNowPlayingMovies.execute();
+    final result = await getNowPlayingTvs.execute();
     result.fold(
       (failure) {
         _nowPlayingState = RequestState.Error;
@@ -54,24 +55,24 @@ class TvListNotifier extends ChangeNotifier {
     );
   }
 
-  // Future<void> fetchPopularMovies() async {
-  //   _popularMoviesState = RequestState.Loading;
-  //   notifyListeners();
+  Future<void> fetchPopularTvSeries() async {
+    _popularTVsState = RequestState.Loading;
+    notifyListeners();
 
-  //   final result = await getPopularMovies.execute();
-  //   result.fold(
-  //     (failure) {
-  //       _popularMoviesState = RequestState.Error;
-  //       _message = failure.message;
-  //       notifyListeners();
-  //     },
-  //     (moviesData) {
-  //       _popularMoviesState = RequestState.Loaded;
-  //       _popularMovies = moviesData;
-  //       notifyListeners();
-  //     },
-  //   );
-  // }
+    final result = await getPopularTVs.execute();
+    result.fold(
+      (failure) {
+        _popularTVsState = RequestState.Error;
+        _message = failure.message;
+        notifyListeners();
+      },
+      (tvSeriesData) {
+        _popularTVsState = RequestState.Loaded;
+        _popularTVs = tvSeriesData;
+        notifyListeners();
+      },
+    );
+  }
 
   // Future<void> fetchTopRatedMovies() async {
   //   _topRatedMoviesState = RequestState.Loading;
