@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/data/datasources/movie/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie/movie_detail_model.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -186,7 +186,7 @@ void main() {
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/search_spiderman_movie.json'), 200));
       // act
-      final result = await dataSource.searchMovies(tQuery);
+      final result = await dataSource.searchMovies(tQuery, "movie");
       // assert
       expect(result, tSearchResult);
     });
@@ -198,7 +198,38 @@ void main() {
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.searchMovies(tQuery);
+      final call = dataSource.searchMovies(tQuery, "movie");
+      // assert
+      expect(() => call, throwsA(isA<ServerException>()));
+    });
+  });
+
+    group('search tv series', () {
+    final tSearchResult = MovieResponse.fromJson(
+            json.decode(readJson('dummy_data/search_marvel_tv.json')))
+        .movieList;
+    final tQuery = 'Marvel';
+
+    test('should return list of tv series when response code is 200', () async {
+      // arrange
+      when(mockHttpClient
+              .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
+          .thenAnswer((_) async => http.Response(
+              readJson('dummy_data/search_marvel_tv.json'), 200));
+      // act
+      final result = await dataSource.searchMovies(tQuery, "Tv Series");
+      // assert
+      expect(result, tSearchResult);
+    });
+
+    test('should throw ServerException when response code is other than 200',
+        () async {
+      // arrange
+      when(mockHttpClient
+              .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+      // act
+      final call = dataSource.searchMovies(tQuery, "Tv Series");
       // assert
       expect(() => call, throwsA(isA<ServerException>()));
     });

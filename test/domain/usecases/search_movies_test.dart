@@ -20,10 +20,10 @@ void main() {
 
   test('should get list of movies from the repository', () async {
     // arrange
-    when(mockMovieRepository.searchMovies(tQuery))
-        .thenAnswer((_) async => Right(tMovies));
+    when(mockMovieRepository.searchMovies(tQuery, "Movie"))
+        .thenAnswer((_) async => Right(Left(tMovies)));
     // act
-    final result = await usecase.execute(tQuery);
+    final result = await usecase.execute(tQuery, "movie");
     // assert
     expect(result, Right(tMovies));
   });

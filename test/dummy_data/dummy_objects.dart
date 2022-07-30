@@ -3,6 +3,7 @@ import 'package:ditonton/data/models/movie_type.dart';
 import 'package:ditonton/domain/entities/common/genre.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -59,3 +60,21 @@ final testMovieMap = {
   'posterPath': 'posterPath',
   'title': 'title',
 };
+
+final testTvDetail = TvDetail(
+  backdropPath: 'backdropPath',
+  genres: [Genre(id: 1, name: 'Action')],
+  id: 1,
+  originalName: "originalName",
+  overview: 'overview',
+  posterPath: 'posterPath',
+  firstAirDate: 'releaseDate',
+  name: 'title',
+  voteAverage: 1,
+  voteCount: 1,
+  createdBy: [],
+  episodeRunTime: [],
+  languages: [],
+  productionCompanies: [],
+  seasons: [],
+);
