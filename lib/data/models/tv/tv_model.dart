@@ -39,7 +39,7 @@ class TvModel extends Equatable {
         backdropPath: json["backdrop_path"],
         voteAverage: json["vote_average"],
         overview: json["overview"],
-        firstAirDate: json["first_air_date"],
+        firstAirDate: json["first_air_date"] ?? "",
         originCountry: List<String>.from(json["origin_country"].map((x) => x)),
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         originalLanguage: json["original_language"],

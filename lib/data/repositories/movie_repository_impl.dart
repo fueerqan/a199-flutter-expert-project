@@ -6,6 +6,7 @@ import 'package:ditonton/data/datasources/movie/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
@@ -80,10 +81,24 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> searchMovies(String query) async {
+  Future<Either<Failure, Either<List<Movie>, List<TvSeries>>>> searchMovies(
+      String query, String type) async {
     try {
-      final result = await remoteDataSource.searchMovies(query);
-      return Right(result.map((model) => model.toEntity()).toList());
+      final result = await remoteDataSource.searchMovies(query, type);
+
+      final List<Movie> movieList = [];
+      final List<TvSeries> tvList = [];
+
+      result.fold(
+        (movie) => movieList.addAll(movie.map((e) => e.toEntity()).toList()),
+        (tv) => tvList.addAll(tv.map((e) => e.toEntity()).toList()),
+      );
+
+      if (type.toLowerCase() == "movie") {
+        return Right(Left(movieList));
+      } else {
+        return Right(Right(tvList));
+      }
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {

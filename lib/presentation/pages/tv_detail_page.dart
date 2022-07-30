@@ -31,6 +31,8 @@ class _TvDetailPageState extends State<TvDetailPage> {
       Provider.of<TvDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
+    print("Detail");
+    print(widget.id);
   }
 
   @override

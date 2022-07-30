@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/movie/movie_detail_model.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/models/movie/movie_model.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
+import 'package:ditonton/data/models/tv/tv_model.dart';
+import 'package:ditonton/data/models/tv/tv_response.dart';
 import 'package:http/http.dart' as http;
 
 abstract class MovieRemoteDataSource {
@@ -12,7 +15,10 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getTopRatedMovies();
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<List<MovieModel>> getMovieRecommendations(int id);
-  Future<List<MovieModel>> searchMovies(String query);
+  Future<Either<List<MovieModel>, List<TvModel>>> searchMovies(
+    String query,
+    String type,
+  );
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -84,12 +90,21 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> searchMovies(String query) async {
-    final response = await client
-        .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$query'));
+  Future<Either<List<MovieModel>, List<TvModel>>> searchMovies(
+      String query, String type) async {
+    String url = "$BASE_URL/search/";
+    if (type.toLowerCase() == "movie") {
+      url += "movie";
+    } else {
+      url += "tv";
+    }
 
-    if (response.statusCode == 200) {
-      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+    final response = await client.get(Uri.parse('$url?$API_KEY&query=$query'));
+
+    if (response.statusCode == 200 && type.toLowerCase() == "movie") {
+      return Left(MovieResponse.fromJson(json.decode(response.body)).movieList);
+    } else if (response.statusCode == 200) {
+      return Right(TvResponse.fromJson(json.decode(response.body)).tvList);
     } else {
       throw ServerException();
     }

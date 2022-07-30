@@ -1,6 +1,8 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
+import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:flutter/foundation.dart';
 
 class MovieSearchNotifier extends ChangeNotifier {
@@ -14,14 +16,21 @@ class MovieSearchNotifier extends ChangeNotifier {
   List<Movie> _searchResult = [];
   List<Movie> get searchResult => _searchResult;
 
+  List<TvSeries> _searchTvResult = [];
+  List<TvSeries> get searchTvResult => _searchTvResult;
+
   String _message = '';
   String get message => _message;
 
+  String dropdownValue = SearchPage.dropdownOptions[0];
+  String _query = "";
+
   Future<void> fetchMovieSearch(String query) async {
+    _query = query;
     _state = RequestState.Loading;
     notifyListeners();
 
-    final result = await searchMovies.execute(query);
+    final result = await searchMovies.execute(query, dropdownValue);
     result.fold(
       (failure) {
         _message = failure.message;
@@ -29,10 +38,28 @@ class MovieSearchNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (data) {
-        _searchResult = data;
+        data.fold(
+          (movie) {
+            _searchResult = movie;
+            _searchTvResult = [];
+          },
+          (tv) {
+            _searchResult = [];
+            _searchTvResult = tv;
+          },
+        );
         _state = RequestState.Loaded;
         notifyListeners();
       },
     );
+  }
+
+  Future<void> changeSearchType(String? value) async {
+    dropdownValue = value ?? SearchPage.dropdownOptions[0];
+    notifyListeners();
+
+    if (_query.isNotEmpty) {
+      await fetchMovieSearch(_query);
+    }
   }
 }
