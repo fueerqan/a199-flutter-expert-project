@@ -1,16 +1,11 @@
-import 'package:ditonton/domain/entities/movie/movie.dart';
-import 'package:ditonton/domain/entities/movie/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
-import 'package:ditonton/domain/usecases/get_movie_detail.dart';
-import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
+import 'package:ditonton/domain/usecases/get_tv_recommendations.dart';
 import 'package:ditonton/domain/usecases/get_tv_watchlist_status.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_tv_watchlist.dart';
-import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_tv_watchlist.dart';
-import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +14,7 @@ class TvDetailNotifier extends ChangeNotifier {
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
 
   final GetTvDetail getTvDetail;
-  // final GetMovieRecommendations getMovieRecommendations;
+  final GetTvRecommendations getRecommendations;
   final GetTvWatchListStatus getWatchListStatus;
   final SaveTvWatchlist saveWatchlist;
   final RemoveTvWatchlist removeWatchlist;
@@ -29,7 +24,7 @@ class TvDetailNotifier extends ChangeNotifier {
     required this.saveWatchlist,
     required this.getWatchListStatus,
     required this.removeWatchlist,
-    // required this.getMovieRecommendations,
+    required this.getRecommendations,
   });
 
   late TvDetail _detail;
@@ -38,11 +33,11 @@ class TvDetailNotifier extends ChangeNotifier {
   RequestState _detailState = RequestState.Empty;
   RequestState get detailState => _detailState;
 
-  // List<Movie> _movieRecommendations = [];
-  // List<Movie> get movieRecommendations => _movieRecommendations;
+  List<TvSeries> _tvRecommendations = [];
+  List<TvSeries> get tvRecommendations => _tvRecommendations;
 
-  // RequestState _recommendationState = RequestState.Empty;
-  // RequestState get recommendationState => _recommendationState;
+  RequestState _recommendationState = RequestState.Empty;
+  RequestState get recommendationState => _recommendationState;
 
   String _message = '';
   String get message => _message;
@@ -54,7 +49,7 @@ class TvDetailNotifier extends ChangeNotifier {
     _detailState = RequestState.Loading;
     notifyListeners();
     final detailResult = await getTvDetail.execute(id);
-    // final recommendationResult = await getMovieRecommendations.execute(id);
+    final recommendationResult = await getRecommendations.execute(id);
     detailResult.fold(
       (failure) {
         _detailState = RequestState.Error;
@@ -62,19 +57,19 @@ class TvDetailNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (tvDetail) {
-        // _recommendationState = RequestState.Loading;
+        _recommendationState = RequestState.Loading;
         _detail = tvDetail;
         notifyListeners();
-        // recommendationResult.fold(
-        //   (failure) {
-        //     _recommendationState = RequestState.Error;
-        //     _message = failure.message;
-        //   },
-        //   (movies) {
-        //     _recommendationState = RequestState.Loaded;
-        //     _movieRecommendations = movies;
-        //   },
-        // );
+        recommendationResult.fold(
+          (failure) {
+            _recommendationState = RequestState.Error;
+            _message = failure.message;
+          },
+          (movies) {
+            _recommendationState = RequestState.Loaded;
+            _tvRecommendations = movies;
+          },
+        );
         _detailState = RequestState.Loaded;
         notifyListeners();
       },

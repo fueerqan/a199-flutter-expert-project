@@ -23,7 +23,6 @@ class TvRepositoryImpl implements TvRepository {
   Future<Either<Failure, List<TvSeries>>> getNowPlayingTVs() async {
     try {
       final result = await remoteDataSource.getNowPlayingTvSeries();
-      print(result);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return Left(ServerFailure(''));
@@ -94,17 +93,19 @@ class TvRepositoryImpl implements TvRepository {
     return Right(result.map((data) => data.toTvEntity()).toList());
   }
 
-  // @override
-  // Future<Either<Failure, List<Movie>>> getMovieRecommendations(int id) async {
-  //   try {
-  //     final result = await remoteDataSource.getMovieRecommendations(id);
-  //     return Right(result.map((model) => model.toEntity()).toList());
-  //   } on ServerException {
-  //     return Left(ServerFailure(''));
-  //   } on SocketException {
-  //     return Left(ConnectionFailure('Failed to connect to the network'));
-  //   }
-  // }
+  @override
+  Future<Either<Failure, List<TvSeries>>> getTvRecommendations(int id) async {
+    try {
+      final result = await remoteDataSource.getTvRecommendations(id);
+      print("Recommendation");
+      print(result);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
 
   // @override
   // Future<Either<Failure, List<Movie>>> getTopRatedMovies() async {
