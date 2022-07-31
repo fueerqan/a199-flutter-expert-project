@@ -1,5 +1,6 @@
 import 'package:ditonton/data/models/tv/tv_model.dart';
 import 'package:ditonton/data/models/tv/tv_response.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -63,8 +64,7 @@ void main() {
 
       // assert
       expect(result.tvList.length, 1);
-      expect(result
-      , expectedModel);
+      expect(result, expectedModel);
 
       final tvData = result.tvList[0];
       expect(tvData.posterPath, "poster path");
@@ -144,19 +144,35 @@ void main() {
       final result = model.toEntity();
 
       // assert
-      expect(result.posterPath, model.posterPath);
-      expect(result.popularity, model.popularity);
-      expect(result.id, model.id);
-      expect(result.backdropPath, model.backdropPath);
-      expect(result.voteAverage, model.voteAverage);
-      expect(result.overview, model.overview);
-      expect(result.firstAirDate, model.firstAirDate);
-      expect(result.originCountry, model.originCountry);
-      expect(result.genreIds, model.genreIds);
-      expect(result.originalLanguage, model.originalLanguage);
-      expect(result.voteCount, model.voteCount);
-      expect(result.title, model.name);
-      expect(result.originalName, model.originalName);
+      expect(result, model);
+    });
+
+    test("Watch list", () {
+      // arrange
+
+      // act
+      final result = TvSeries.watchlist(
+          id: 123,
+          overview: "overview",
+          posterPath: "posterPath",
+          title: "title");
+
+      // assert
+      final expectedResult = TvSeries(
+          popularity: null,
+          id: 123,
+          voteAverage: null,
+          overview: "overview",
+          firstAirDate: null,
+          originCountry: null,
+          genreIds: null,
+          originalLanguage: null,
+          voteCount: null,
+          title: "title",
+          originalName: null,
+          posterPath: "posterPath");
+
+      expect(result, expectedResult);
     });
   });
 }

@@ -59,6 +59,7 @@ final testMovieMap = {
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+  'type': 'movie',
 };
 
 final testTvDetail = TvDetail(
