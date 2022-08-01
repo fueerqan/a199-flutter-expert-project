@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/datasources/movie/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie/movie_detail_model.dart';
+import 'package:ditonton/data/models/movie/movie_model.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
+import 'package:ditonton/data/models/tv/tv_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -187,8 +189,12 @@ void main() {
               readJson('dummy_data/search_spiderman_movie.json'), 200));
       // act
       final result = await dataSource.searchMovies(tQuery, "movie");
+
       // assert
-      expect(result, tSearchResult);
+      List<MovieModel> expectedResult = [];
+      result.fold((l) => expectedResult = l, (r) => null);
+
+      expect(expectedResult, tSearchResult);
     });
 
     test('should throw ServerException when response code is other than 200',
@@ -204,22 +210,44 @@ void main() {
     });
   });
 
-    group('search tv series', () {
-    final tSearchResult = MovieResponse.fromJson(
-            json.decode(readJson('dummy_data/search_marvel_tv.json')))
-        .movieList;
+  group('search tv series', () {
+    final tSearchResult = TvResponse.fromJson({
+      "page": 1,
+      "results": [
+        {
+          "backdrop_path": "/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg",
+          "genre_ids": [14, 28],
+          "id": 92782,
+          "original_language": "en",
+          "original_name": "Ms. Marvel",
+          "overview":
+              "A great student, avid gamer, and voracious fan-fic scribe, Kamala Khan has a special affinity for superheroes, particularly Captain Marvel. However, she struggles to fit in at home and at school - that is, until she gets superpowers like the heroes shes always looked up to. Life is easier with superpowers, right?",
+          "popularity": 60.441,
+          "poster_path": "/cdkyMYdu8ao26XOBvilNzLneUg1.jpg",
+          "first_air_date": "2022-06-08",
+          "name": "Spider-Man",
+          "vote_average": 7.2,
+          "vote_count": 13507,
+          "origin_country": ["US"]
+        }
+      ],
+      "total_pages": 4,
+      "total_results": 62
+    }).tvList;
     final tQuery = 'Marvel';
 
     test('should return list of tv series when response code is 200', () async {
       // arrange
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
-          .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/search_marvel_tv.json'), 200));
+          .thenAnswer((_) async =>
+              http.Response(readJson('dummy_data/search_marvel_tv.json'), 200));
       // act
       final result = await dataSource.searchMovies(tQuery, "Tv Series");
+
       // assert
-      expect(result, tSearchResult);
+      final expectedResult = result.getOrElse(() => []);
+      expect(expectedResult, tSearchResult);
     });
 
     test('should throw ServerException when response code is other than 200',

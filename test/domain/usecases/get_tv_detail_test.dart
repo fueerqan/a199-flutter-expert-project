@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -24,6 +25,8 @@ void main() {
     // act
     final result = await usecase.execute(tId);
     // assert
-    expect(result, Right(testMovieDetail));
+    TvDetail expectedResult = result.getOrElse(() => throw Exception(""));
+
+    expect(expectedResult, testTvDetail);
   });
 }

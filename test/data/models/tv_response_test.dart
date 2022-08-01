@@ -144,7 +144,22 @@ void main() {
       final result = model.toEntity();
 
       // assert
-      expect(result, model);
+      final expectedResult = TvSeries(
+        popularity: 10.0,
+        id: 12345,
+        voteAverage: 10.0,
+        overview: "overview",
+        firstAirDate: "firstAirDate",
+        originCountry: ["US"],
+        genreIds: [123, 456],
+        originalLanguage: "en",
+        voteCount: 1000,
+        title: "name",
+        originalName: "originalName",
+        posterPath: "poster path",
+        backdropPath: "backdrop path",
+      );
+      expect(result, expectedResult);
     });
 
     test("Watch list", () {

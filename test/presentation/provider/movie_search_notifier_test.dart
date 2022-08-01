@@ -140,7 +140,7 @@ void main() {
       // assert
       expect(provider.state, RequestState.Error);
       expect(provider.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+      expect(listenerCallCount, 3);
     });
   });
 

@@ -23,8 +23,13 @@ void main() {
     when(mockMovieRepository.searchMovies(tQuery, "Movie"))
         .thenAnswer((_) async => Right(Left(tMovies)));
     // act
-    final result = await usecase.execute(tQuery, "movie");
+    final result = await usecase.execute(tQuery, "Movie");
     // assert
-    expect(result, Right(tMovies));
+    List<Movie> expectedResult = [];
+
+    final resultList = result.getOrElse(() => Left([]));
+    resultList.fold((l) => expectedResult = l, (r) => null);
+
+    expect(expectedResult, tMovies);
   });
 }
