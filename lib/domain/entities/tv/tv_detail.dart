@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:ditonton/domain/entities/common/genre.dart';
 import 'package:equatable/equatable.dart';
 

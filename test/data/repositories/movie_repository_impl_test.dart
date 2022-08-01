@@ -307,23 +307,29 @@ void main() {
     test('should return movie list when call to data source is successful',
         () async {
       // arrange
-      when(mockRemoteDataSource.searchMovies(tQuery))
-          .thenAnswer((_) async => tMovieModelList);
+      when(mockRemoteDataSource.searchMovies(tQuery, "Movie"))
+          .thenAnswer((_) async => Left(tMovieModelList));
       // act
-      final result = await repository.searchMovies(tQuery);
+      final result = await repository.searchMovies(tQuery, "Movie");
       // assert
       /* workaround to test List in Right. Issue: https://github.com/spebbe/dartz/issues/80 */
-      final resultList = result.getOrElse(() => []);
-      expect(resultList, tMovieList);
+      final resultList = result.getOrElse(() => Left([]));
+      List<Movie> movieResultList = [];
+      resultList.fold(
+        (l) => movieResultList = l,
+        (r) => null,
+      );
+
+      expect(movieResultList, tMovieList);
     });
 
     test('should return ServerFailure when call to data source is unsuccessful',
         () async {
       // arrange
-      when(mockRemoteDataSource.searchMovies(tQuery))
+      when(mockRemoteDataSource.searchMovies(tQuery, "Movie"))
           .thenThrow(ServerException());
       // act
-      final result = await repository.searchMovies(tQuery);
+      final result = await repository.searchMovies(tQuery, "Movie");
       // assert
       expect(result, Left(ServerFailure('')));
     });
@@ -332,10 +338,10 @@ void main() {
         'should return ConnectionFailure when device is not connected to the internet',
         () async {
       // arrange
-      when(mockRemoteDataSource.searchMovies(tQuery))
+      when(mockRemoteDataSource.searchMovies(tQuery, "Movie"))
           .thenThrow(SocketException('Failed to connect to the network'));
       // act
-      final result = await repository.searchMovies(tQuery);
+      final result = await repository.searchMovies(tQuery, "Movie");
       // assert
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));

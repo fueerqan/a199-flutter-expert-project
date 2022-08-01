@@ -1,7 +1,5 @@
-import 'package:ditonton/domain/repositories/tv_repository.dart';
 import 'package:ditonton/domain/usecases/get_tv_watchlist_status.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../helpers/test_helper.mocks.dart';
