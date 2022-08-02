@@ -115,11 +115,14 @@ class MockMovieRepository extends _i1.Mock implements _i5.MovieRepository {
       (super.noSuchMethod(Invocation.method(#isAddedToWatchlist, [id]),
           returnValue: Future<bool>.value(false)) as _i6.Future<bool>);
   @override
-  _i6.Future<_i2.Either<_i7.Failure, List<_i8.Movie>>> getWatchlistMovies() =>
-      (super.noSuchMethod(Invocation.method(#getWatchlistMovies, []),
-          returnValue: Future<_i2.Either<_i7.Failure, List<_i8.Movie>>>.value(
-              _FakeEither_0<_i7.Failure, List<_i8.Movie>>())) as _i6
-          .Future<_i2.Either<_i7.Failure, List<_i8.Movie>>>);
+  _i6.Future<_i2.Either<_i7.Failure, List<_i2.Either<_i8.Movie, _i10.TvSeries>>>>
+      getWatchlistMovies() => (super.noSuchMethod(
+          Invocation.method(#getWatchlistMovies, []),
+          returnValue:
+              Future<_i2.Either<_i7.Failure, List<_i2.Either<_i8.Movie, _i10.TvSeries>>>>.value(
+                  _FakeEither_0<_i7.Failure,
+                      List<_i2.Either<_i8.Movie, _i10.TvSeries>>>())) as _i6
+          .Future<_i2.Either<_i7.Failure, List<_i2.Either<_i8.Movie, _i10.TvSeries>>>>);
 }
 
 /// A class which mocks [MovieRemoteDataSource].

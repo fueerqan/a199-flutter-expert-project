@@ -29,12 +29,12 @@ void main() {
   test('should change movies data when data is gotten successfully', () async {
     // arrange
     when(mockGetWatchlistMovies.execute())
-        .thenAnswer((_) async => Right([testWatchlistMovie]));
+        .thenAnswer((_) async => Right([Left(testWatchlistMovie)]));
     // act
     await provider.fetchWatchlistMovies();
     // assert
     expect(provider.watchlistState, RequestState.Loaded);
-    expect(provider.watchlistMovies, [testWatchlistMovie]);
+    expect(provider.watchlistMovies, [Left(testWatchlistMovie)]);
     expect(listenerCallCount, 2);
   });
 

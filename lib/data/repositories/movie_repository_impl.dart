@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/datasources/local/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/movie_type.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
@@ -139,8 +140,22 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getWatchlistMovies() async {
+  Future<Either<Failure, List<Either<Movie, TvSeries>>>>
+      getWatchlistMovies() async {
     final result = await localDataSource.getWatchlistMovies();
-    return Right(result.map((data) => data.toEntity()).toList());
+    final List<Movie> movieList = [];
+    final List<TvSeries> tvList = [];
+
+    result
+        .map((data) => (data.movieType == MovieType.movie)
+            ? movieList.add(data.toEntity())
+            : tvList.add(data.toTvEntity()))
+        .toList();
+
+    final List<Either<Movie, TvSeries>> resultList = [];
+    movieList.map((data) => resultList.add(Left(data))).toList();
+    tvList.map((data) => resultList.add(Right(data))).toList();
+
+    return Right(resultList);
   }
 }

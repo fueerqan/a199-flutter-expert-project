@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/models/movie_type.dart';
 import 'package:ditonton/domain/entities/common/genre.dart';
@@ -23,7 +24,7 @@ final testMovie = Movie(
   voteCount: 13507,
 );
 
-final testMovieList = [testMovie];
+final testMovieList = <Either<Movie,TvSeries>>[Left(testMovie)];
 
 final testMovieDetail = MovieDetail(
   adult: false,

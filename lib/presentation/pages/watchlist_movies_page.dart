@@ -2,6 +2,7 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,8 +51,15 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
             } else if (data.watchlistState == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
+                  late Widget view;
                   final movie = data.watchlistMovies[index];
-                  return MovieCard(movie);
+
+                  movie.fold(
+                    (l) => view = MovieCard(l),
+                    (r) => view = TvCard(r),
+                  );
+
+                  return view;
                 },
                 itemCount: data.watchlistMovies.length,
               );
