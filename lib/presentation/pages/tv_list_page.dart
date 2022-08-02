@@ -24,8 +24,8 @@ class _TvListPageState extends State<TvListPage> {
     super.initState();
     Future.microtask(() => Provider.of<TvListNotifier>(context, listen: false)
       ..fetchNowPlayingTvSeries()
-      ..fetchPopularTvSeries());
-    // ..fetchTopRatedMovies());
+      ..fetchPopularTvSeries()
+      ..fetchTopRatedTvSeries());
   }
 
   @override
@@ -79,6 +79,22 @@ class _TvListPageState extends State<TvListPage> {
                   );
                 } else if (state == RequestState.Loaded) {
                   return TvSeriesList(data.popularTVs);
+                } else {
+                  return Text('Failed');
+                }
+              }),
+              _buildSubHeading(title: 'Top Rated', onTap: () {}
+                  //  =>
+                  //     Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME),
+                  ),
+              Consumer<TvListNotifier>(builder: (context, data, child) {
+                final state = data.topRatedTVsState;
+                if (state == RequestState.Loading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state == RequestState.Loaded) {
+                  return TvSeriesList(data.topRatedTVs);
                 } else {
                   return Text('Failed');
                 }

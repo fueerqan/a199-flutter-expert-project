@@ -52,4 +52,9 @@ class MockTvRemoteDataSource extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#getTvRecommendations, [id]),
               returnValue: Future<List<_i5.TvModel>>.value(<_i5.TvModel>[]))
           as _i4.Future<List<_i5.TvModel>>);
+  @override
+  _i4.Future<List<_i5.TvModel>> getTopRatedTvSeries() =>
+      (super.noSuchMethod(Invocation.method(#getTopRatedTvSeries, []),
+              returnValue: Future<List<_i5.TvModel>>.value(<_i5.TvModel>[]))
+          as _i4.Future<List<_i5.TvModel>>);
 }

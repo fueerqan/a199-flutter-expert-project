@@ -154,6 +154,45 @@ void main() {
     });
   });
 
+  group('Top Rated Tv Series', () {
+    test('should return tv list when call to data source is success', () async {
+      // arrange
+      when(mockRemoteDataSource.getTopRatedTvSeries())
+          .thenAnswer((_) async => tTvModelList);
+      // act
+      final result = await repository.getTopRatedTvs();
+      // assert
+      /* workaround to test List in Right. Issue: https://github.com/spebbe/dartz/issues/80 */
+      final resultList = result.getOrElse(() => []);
+      expect(resultList, tTvList);
+    });
+
+    test(
+        'should return server failure when call to data source is unsuccessful',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTopRatedTvSeries())
+          .thenThrow(ServerException());
+      // act
+      final result = await repository.getTopRatedTvs();
+      // assert
+      expect(result, Left(ServerFailure('')));
+    });
+
+    test(
+        'should return connection failure when device is not connected to the internet',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTopRatedTvSeries())
+          .thenThrow(SocketException('Failed to connect to the network'));
+      // act
+      final result = await repository.getTopRatedTvs();
+      // assert
+      expect(
+          result, Left(ConnectionFailure('Failed to connect to the network')));
+    });
+  });
+
   group('Get Tv Detail', () {
     final tId = 1;
 

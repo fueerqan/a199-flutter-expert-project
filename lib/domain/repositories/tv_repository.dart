@@ -12,4 +12,5 @@ abstract class TvRepository {
   Future<bool> isAddedToWatchlist(int id);
   Future<Either<Failure, List<TvSeries>>> getWatchlistMovies();
   Future<Either<Failure, List<TvSeries>>> getTvRecommendations(int id);
+  Future<Either<Failure, List<TvSeries>>> getTopRatedTvs();
 }
