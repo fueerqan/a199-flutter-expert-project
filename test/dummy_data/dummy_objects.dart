@@ -3,6 +3,7 @@ import 'package:ditonton/data/models/movie_type.dart';
 import 'package:ditonton/domain/entities/common/genre.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 
 final testMovie = Movie(
@@ -78,4 +79,19 @@ final testTvDetail = TvDetail(
   languages: [],
   productionCompanies: [],
   seasons: [],
+);
+
+final testTvMovieTable = MovieTable(
+  id: 1,
+  title: 'title',
+  posterPath: 'posterPath',
+  overview: 'overview',
+  movieType: MovieType.tv,
+);
+
+final testWatchlistTv = TvSeries.watchlist(
+  id: 1,
+  title: 'title',
+  posterPath: 'posterPath',
+  overview: 'overview',
 );
