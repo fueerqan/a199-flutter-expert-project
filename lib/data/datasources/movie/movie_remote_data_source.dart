@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:common/common/exception.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/movie/movie_detail_model.dart';
-import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/models/movie/movie_model.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';
 import 'package:ditonton/data/models/tv/tv_model.dart';

@@ -39,6 +39,13 @@ dependencies:
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
 
+  common:
+    path: features/common
+  movies:
+    path: features/movies
+  tv_series:
+    path: features/tv_series
+
 dev_dependencies:
   mockito: ^5.0.8
   build_runner: ^2.0.4

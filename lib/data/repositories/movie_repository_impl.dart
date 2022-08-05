@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:common/common/exception.dart';
+import 'package:common/common/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/datasources/local/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie/movie_remote_data_source.dart';
@@ -9,8 +11,6 @@ import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource remoteDataSource;

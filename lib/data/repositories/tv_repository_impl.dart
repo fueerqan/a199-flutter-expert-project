@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:common/common/exception.dart';
+import 'package:common/common/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/datasources/local/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv/tv_remote_data_source.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
