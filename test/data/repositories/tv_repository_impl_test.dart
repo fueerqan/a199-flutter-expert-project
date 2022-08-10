@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:common/common/exception.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/data/datasources/tv/tv_remote_data_source.dart';
+import 'package:tv_series/datasources/tv_remote_data_source.dart';
 import 'package:common/data/models/genre_model.dart';
 import 'package:common/common/failure.dart';
 import 'package:ditonton/data/models/tv/tv_detail_model.dart';
 import 'package:ditonton/data/models/tv/tv_model.dart';
-import 'package:ditonton/data/repositories/tv_repository_impl.dart';
+import 'package:tv_series/data/repositories/tv_repository_impl.dart';
 import 'package:ditonton/domain/entities/common/genre.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';

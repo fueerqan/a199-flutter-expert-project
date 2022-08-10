@@ -22,7 +22,7 @@ import 'package:ditonton/domain/entities/movie/movie_detail.dart' as _i9;
 import 'package:ditonton/domain/entities/tv/tv.dart' as _i10;
 import 'package:ditonton/domain/entities/tv/tv_detail.dart' as _i17;
 import 'package:movies/domain/repositories/movie_repository.dart' as _i5;
-import 'package:ditonton/domain/repositories/tv_repository.dart' as _i16;
+import 'package:tv_series/domain/repositories/tv_repository.dart' as _i16;
 import 'package:http/http.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:sqflite/sqflite.dart' as _i19;

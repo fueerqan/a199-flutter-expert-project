@@ -3,9 +3,9 @@ import 'package:common/common/state_enum.dart';
 import 'package:common/common/utils.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:movies/presentation/widgets/movie_card_list.dart';
-import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tv_series/presentation/widgets/tv_card_list.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist-movie';

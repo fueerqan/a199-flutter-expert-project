@@ -1,13 +1,13 @@
 
 import 'package:common/common/constants.dart';
 import 'package:common/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:movies/domain/movie/movie.dart';
 import 'package:movies/presentation/widgets/movie_card_list.dart';
-import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tv_series/domain/entities/tv.dart';
+import 'package:tv_series/presentation/widgets/tv_card_list.dart';
 
 class SearchPage extends StatelessWidget {
   static const dropdownOptions = [

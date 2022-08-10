@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:common/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_movies.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movies/domain/movie/movie.dart';
+import 'package:tv_series/domain/entities/tv.dart';
 
 class WatchlistMovieNotifier extends ChangeNotifier {
   var _watchlistMovies = <Either<Movie, TvSeries>>[];

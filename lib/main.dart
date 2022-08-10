@@ -2,19 +2,9 @@ import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
 import 'package:common/common/utils.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/now_playing_tv_page.dart';
-import 'package:ditonton/presentation/pages/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_tv_page.dart';
-import 'package:ditonton/presentation/pages/tv_detail_page.dart';
-import 'package:ditonton/presentation/pages/tv_list_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/now_playing_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_list_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +18,16 @@ import 'package:movies/presentation/provider/popular_movies_notifier.dart';
 import 'package:movies/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
+import 'package:tv_series/presentation/pages/now_playing_tv_page.dart';
+import 'package:tv_series/presentation/pages/popular_tv_page.dart';
+import 'package:tv_series/presentation/pages/top_rated_tv_page.dart';
+import 'package:tv_series/presentation/pages/tv_detail_page.dart';
+import 'package:tv_series/presentation/pages/tv_list_page.dart';
+import 'package:tv_series/presentation/providers/now_playing_tv_notifier.dart';
+import 'package:tv_series/presentation/providers/popular_tv_notifier.dart';
+import 'package:tv_series/presentation/providers/top_rated_tv_notifier.dart';
+import 'package:tv_series/presentation/providers/tv_detail_notifier.dart';
+import 'package:tv_series/presentation/providers/tv_list_notifier.dart';
 
 void main() {
   di.init();
@@ -87,17 +87,17 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case homeRoute:
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
-            case TvListPage.ROUTE_NAME:
+            case tvListRoute:
               return MaterialPageRoute(builder: (_) => TvListPage());
             case moviePopularRoute:
               return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
-            case PopularTvPage.ROUTE_NAME:
+            case tvPopularRoute:
               return MaterialPageRoute(builder: (_) => PopularTvPage());
-            case NowPlayingTvPage.ROUTE_NAME:
+            case tvNowPlayingRoute:
               return MaterialPageRoute(builder: (_) => NowPlayingTvPage());
             case movieTopRatedRoute:
               return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
-            case TopRatedTvPage.ROUTE_NAME:
+            case tvTopRatedRoute:
               return CupertinoPageRoute(builder: (_) => TopRatedTvPage());
             case movieDetailRoute:
               final id = settings.arguments as int;
@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
-            case TvDetailPage.ROUTE_NAME:
+            case tvDetailRoute:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: id),
