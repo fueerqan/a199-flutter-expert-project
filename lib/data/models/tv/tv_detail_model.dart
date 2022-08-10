@@ -1,5 +1,5 @@
-import 'package:ditonton/data/models/movie/genre_model.dart';
-import 'package:ditonton/domain/entities/common/genre.dart';
+import 'package:common/data/models/genre_model.dart';
+import 'package:common/presentation/common/genre.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 

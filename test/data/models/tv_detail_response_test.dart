@@ -1,4 +1,4 @@
-import 'package:ditonton/data/models/movie/genre_model.dart';
+import 'package:common/data/models/genre_model.dart';
 import 'package:ditonton/data/models/tv/tv_detail_model.dart';
 import 'package:ditonton/domain/entities/common/genre.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';

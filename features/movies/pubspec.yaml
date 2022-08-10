@@ -10,6 +10,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.3
+  dartz: ^0.10.0-nullsafety.2
+  google_fonts: ^2.1.0
+  equatable: ^2.0.2
+  cached_network_image: ^3.0.0
+  provider: ^5.0.0
+  flutter_rating_bar: ^4.0.0
+  
 
   common:
     path: ../common

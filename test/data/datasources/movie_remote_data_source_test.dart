@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:common/common/exception.dart';
-import 'package:ditonton/data/datasources/movie/movie_remote_data_source.dart';
+import 'package:movies/data/datasource/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie/movie_detail_model.dart';
 import 'package:ditonton/data/models/movie/movie_model.dart';
 import 'package:ditonton/data/models/movie/movie_response.dart';

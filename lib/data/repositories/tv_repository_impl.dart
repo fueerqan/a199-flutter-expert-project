@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:common/common/exception.dart';
 import 'package:common/common/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/data/datasources/local/movie_local_data_source.dart';
+import 'package:common/data/datasource/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv/tv_remote_data_source.dart';
-import 'package:ditonton/data/models/movie_table.dart';
+import 'package:common/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
@@ -72,7 +72,7 @@ class TvRepositoryImpl implements TvRepository {
   Future<Either<Failure, String>> saveWatchlist(TvDetail detail) async {
     try {
       final result = await localDataSource.insertWatchlist(
-        MovieTable.fromEntity(tv: detail),
+        detail.toMovieTable(),
       );
       return Right(result);
     } on DatabaseException catch (e) {
@@ -86,7 +86,7 @@ class TvRepositoryImpl implements TvRepository {
   Future<Either<Failure, String>> removeWatchlist(TvDetail detail) async {
     try {
       final result = await localDataSource
-          .removeWatchlist(MovieTable.fromEntity(tv: detail));
+          .removeWatchlist(detail.toMovieTable());
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -99,11 +99,11 @@ class TvRepositoryImpl implements TvRepository {
     return result != null;
   }
 
-  @override
-  Future<Either<Failure, List<TvSeries>>> getWatchlistMovies() async {
-    final result = await localDataSource.getWatchlistMovies();
-    return Right(result.map((data) => data.toTvEntity()).toList());
-  }
+  // @override
+  // Future<Either<Failure, List<TvSeries>>> getWatchlistMovies() async {
+  //   final result = await localDataSource.getWatchlistMovies();
+  //   return Right(result.map((data) => data.toTvEntity()).toList());
+  // }
 
   @override
   Future<Either<Failure, List<TvSeries>>> getTvRecommendations(int id) async {

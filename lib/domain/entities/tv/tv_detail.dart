@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:ditonton/domain/entities/common/genre.dart';
+import 'package:common/data/models/movie_table.dart';
+import 'package:common/data/models/movie_type.dart';
+import 'package:common/presentation/common/genre.dart';
 import 'package:equatable/equatable.dart';
 
 class TvDetail extends Equatable {
@@ -59,6 +61,14 @@ class TvDetail extends Equatable {
   String? type;
   num? voteAverage;
   int? voteCount;
+
+  MovieTable toMovieTable() => MovieTable(
+        id: id ?? 0,
+        title: name ?? "",
+        posterPath: posterPath,
+        overview: overview,
+        movieType: MovieType.tv,
+      );
 
   @override
   List<Object?> get props => [

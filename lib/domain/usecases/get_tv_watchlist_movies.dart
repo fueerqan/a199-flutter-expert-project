@@ -8,7 +8,8 @@ class GetTvWatchlistMovies {
 
   GetTvWatchlistMovies(this._repository);
 
-  Future<Either<Failure, List<TvSeries>>> execute() {
-    return _repository.getWatchlistMovies();
+  Future<Either<Failure, List<TvSeries>>> execute() async {
+    // return _repository.getWatchlistMovies();
+    return Left(DatabaseFailure(""));
   }
 }

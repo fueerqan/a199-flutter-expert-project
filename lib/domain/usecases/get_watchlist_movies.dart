@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
-import 'package:ditonton/domain/repositories/movie_repository.dart';
+import 'package:movies/domain/movie/movie.dart';
+import 'package:movies/domain/repositories/movie_repository.dart';
 import 'package:common/common/failure.dart';
 
 class GetWatchlistMovies {
@@ -9,7 +9,8 @@ class GetWatchlistMovies {
 
   GetWatchlistMovies(this._repository);
 
-  Future<Either<Failure, List<Either<Movie, TvSeries>>>> execute() {
-    return _repository.getWatchlistMovies();
+  Future<Either<Failure, List<Either<Movie, TvSeries>>>> execute() async {
+    // return _repository.getWatchlistMovies();
+    return Left(DatabaseFailure(""));
   }
 }

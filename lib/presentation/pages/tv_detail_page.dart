@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/state_enum.dart';
-import 'package:ditonton/domain/entities/common/genre.dart';
+import 'package:common/presentation/common/genre.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
