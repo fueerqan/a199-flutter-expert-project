@@ -1,5 +1,5 @@
 import 'package:common/data/models/genre_model.dart';
-import 'package:ditonton/domain/entities/common/genre.dart';
+import 'package:common/presentation/common/genre.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

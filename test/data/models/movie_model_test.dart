@@ -1,6 +1,6 @@
-import 'package:ditonton/data/models/movie/movie_model.dart';
-import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movies/data/models/movie_model.dart';
+import 'package:movies/domain/movie/movie.dart';
 
 void main() {
   final tMovieModel = MovieModel(

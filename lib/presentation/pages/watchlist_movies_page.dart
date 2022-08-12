@@ -8,8 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:tv_series/presentation/widgets/tv_card_list.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-movie';
-
   @override
   _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
 }

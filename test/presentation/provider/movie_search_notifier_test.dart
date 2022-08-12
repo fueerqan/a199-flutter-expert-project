@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:common/common/failure.dart';
 import 'package:common/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie/movie.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movies/domain/movie/movie.dart';
+import 'package:tv_series/domain/entities/tv.dart';
 
 import 'movie_search_notifier_test.mocks.dart';
 

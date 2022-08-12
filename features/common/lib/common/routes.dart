@@ -12,5 +12,5 @@ const tvNowPlayingRoute = "/now-playing-tv";
 
 
 const searchRoute = "/search";
-const watchListRoute = "";
-const aboutRoute = "";
+const watchListRoute = "/watchlist-movie";
+const aboutRoute = "/about";

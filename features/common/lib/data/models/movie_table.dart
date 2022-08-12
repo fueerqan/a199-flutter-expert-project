@@ -33,20 +33,6 @@ class MovieTable extends Equatable {
         'type': (movieType == MovieType.movie) ? "movie" : "tv",
       };
 
-  // Movie toEntity() => Movie.watchlist(
-  //       id: id,
-  //       overview: overview,
-  //       posterPath: posterPath,
-  //       title: title,
-  //     );
-
-  // TvSeries toTvEntity() => TvSeries.watchlist(
-  //       id: id,
-  //       overview: overview,
-  //       posterPath: posterPath,
-  //       title: title,
-  //     );
-
   @override
   List<Object?> get props => [id, title, posterPath, overview, movieType];
 }

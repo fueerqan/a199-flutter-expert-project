@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:common/common/constants.dart';
 import 'package:common/common/exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:tv_series/data/models/tv_detail_model.dart';
@@ -15,9 +16,6 @@ abstract class TvRemoteDataSource {
 }
 
 class TvRemoteDataSourceImpl implements TvRemoteDataSource {
-  static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
-  static const BASE_URL = 'https://api.themoviedb.org/3';
-
   final http.Client client;
 
   TvRemoteDataSourceImpl({required this.client});

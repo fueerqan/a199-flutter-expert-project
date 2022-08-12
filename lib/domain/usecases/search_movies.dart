@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:common/common/failure.dart';
+import 'package:ditonton/domain/repositories/search_repository.dart';
 import 'package:movies/domain/movie/movie.dart';
-import 'package:movies/domain/repositories/movie_repository.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 
 class SearchMovies {
-  final MovieRepository repository;
+  final SearchRepository repository;
 
   SearchMovies(this.repository);
 
@@ -13,7 +13,6 @@ class SearchMovies {
     String query,
     String type,
   ) async {
-    // return repository.searchMovies(query, type);
-    return Left(DatabaseFailure(""));
+    return repository.searchMovies(query, type);
   }
 }

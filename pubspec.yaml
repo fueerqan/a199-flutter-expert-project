@@ -41,6 +41,8 @@ dependencies:
 
   common:
     path: features/common
+  about:
+    path: features/about
   movies:
     path: features/movies
   tv_series:

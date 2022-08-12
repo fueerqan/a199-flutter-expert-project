@@ -1,23 +1,25 @@
 import 'dart:io';
 
 import 'package:common/common/exception.dart';
+import 'package:common/presentation/common/genre.dart';
 import 'package:dartz/dartz.dart';
-import 'package:tv_series/datasources/tv_remote_data_source.dart';
+
 import 'package:common/data/models/genre_model.dart';
 import 'package:common/common/failure.dart';
-import 'package:ditonton/data/models/tv/tv_detail_model.dart';
-import 'package:ditonton/data/models/tv/tv_model.dart';
+import 'package:tv_series/data/datasources/tv_remote_data_source.dart';
+import 'package:tv_series/data/models/tv_detail_model.dart';
+import 'package:tv_series/data/models/tv_model.dart';
 import 'package:tv_series/data/repositories/tv_repository_impl.dart';
-import 'package:ditonton/domain/entities/common/genre.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
-import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tv_series/domain/entities/tv.dart';
+import 'package:tv_series/domain/entities/tv_detail.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 import 'tv_repository_impl_test.mocks.dart';
+
 
 @GenerateMocks([TvRemoteDataSource])
 void main() {
@@ -418,16 +420,16 @@ void main() {
     });
   });
 
-  group('get watchlist tv series', () {
-    test('should return list of Tv Series', () async {
-      // arrange
-      when(mockLocalDataSource.getWatchlistMovies())
-          .thenAnswer((_) async => [testTvMovieTable]);
-      // act
-      final result = await repository.getWatchlistMovies();
-      // assert
-      final resultList = result.getOrElse(() => []);
-      expect(resultList, [testWatchlistTv]);
-    });
-  });
+  // group('get watchlist tv series', () {
+  //   test('should return list of Tv Series', () async {
+  //     // arrange
+  //     when(mockLocalDataSource.getWatchlistMovies())
+  //         .thenAnswer((_) async => [testTvMovieTable]);
+  //     // act
+  //     final result = await repository.getWatchlistMovies();
+  //     // assert
+  //     final resultList = result.getOrElse(() => []);
+  //     expect(resultList, [testWatchlistTv]);
+  //   });
+  // });
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:common/common/constants.dart';
 import 'package:common/common/exception.dart';
-import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies/data/models/movie_detail_model.dart';
 import 'package:movies/data/models/movie_model.dart';
@@ -13,15 +13,9 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getTopRatedMovies();
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<List<MovieModel>> getMovieRecommendations(int id);
-  // Future<Either<List<MovieModel>, List<TvModel>>> searchMovies(
-  //   String query,
-  //   String type,
-  // );
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
-  static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
-  static const BASE_URL = 'https://api.themoviedb.org/3';
 
   final http.Client client;
 
@@ -87,24 +81,4 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     }
   }
 
-  // @override
-  // Future<Either<List<MovieModel>, List<TvModel>>> searchMovies(
-  //     String query, String type) async {
-  //   String url = "$BASE_URL/search/";
-  //   if (type.toLowerCase() == "movie") {
-  //     url += "movie";
-  //   } else {
-  //     url += "tv";
-  //   }
-
-  //   final response = await client.get(Uri.parse('$url?$API_KEY&query=$query'));
-
-  //   if (response.statusCode == 200 && type.toLowerCase() == "movie") {
-  //     return Left(MovieResponse.fromJson(json.decode(response.body)).movieList);
-  //   } else if (response.statusCode == 200) {
-  //     return Right(TvResponse.fromJson(json.decode(response.body)).tvList);
-  //   } else {
-  //     throw ServerException();
-  //   }
-  // }
 }

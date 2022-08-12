@@ -5,8 +5,6 @@ import 'package:common/common/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:common/data/datasource/movie_local_data_source.dart';
 import 'package:movies/data/datasource/movie_remote_data_source.dart';
-import 'package:common/data/models/movie_table.dart';
-import 'package:common/data/models/movie_type.dart';
 import 'package:movies/domain/movie/movie.dart';
 import 'package:movies/domain/movie/movie_detail.dart';
 import 'package:movies/domain/repositories/movie_repository.dart';
@@ -80,31 +78,6 @@ class MovieRepositoryImpl implements MovieRepository {
     }
   }
 
-  // @override
-  // Future<Either<Failure, Either<List<Movie>, List<TvSeries>>>> searchMovies(
-  //     String query, String type) async {
-  //   try {
-  //     final result = await remoteDataSource.searchMovies(query, type);
-
-  //     final List<Movie> movieList = [];
-  //     final List<TvSeries> tvList = [];
-
-  //     result.fold(
-  //       (movie) => movieList.addAll(movie.map((e) => e.toEntity()).toList()),
-  //       (tv) => tvList.addAll(tv.map((e) => e.toEntity()).toList()),
-  //     );
-
-  //     if (type.toLowerCase() == "movie") {
-  //       return Right(Left(movieList));
-  //     } else {
-  //       return Right(Right(tvList));
-  //     }
-  //   } on ServerException {
-  //     return Left(ServerFailure(''));
-  //   } on SocketException {
-  //     return Left(ConnectionFailure('Failed to connect to the network'));
-  //   }
-  // }
 
   @override
   Future<Either<Failure, String>> saveWatchlist(MovieDetail movie) async {
@@ -137,24 +110,4 @@ class MovieRepositoryImpl implements MovieRepository {
     final result = await localDataSource.getMovieById(id);
     return result != null;
   }
-
-  // @override
-  // Future<Either<Failure, List<Either<Movie, TvSeries>>>>
-  //     getWatchlistMovies() async {
-  //   final result = await localDataSource.getWatchlistMovies();
-  //   final List<Movie> movieList = [];
-  //   final List<TvSeries> tvList = [];
-
-  //   result
-  //       .map((data) => (data.movieType == MovieType.movie)
-  //           ? movieList.add(data.toEntity())
-  //           : tvList.add(data.toTvEntity()))
-  //       .toList();
-
-  //   final List<Either<Movie, TvSeries>> resultList = [];
-  //   movieList.map((data) => resultList.add(Left(data))).toList();
-  //   tvList.map((data) => resultList.add(Right(data))).toList();
-
-  //   return Right(resultList);
-  // }
 }

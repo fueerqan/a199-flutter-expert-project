@@ -77,15 +77,15 @@ class TvRepositoryImpl implements TvRepository {
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
   @override
   Future<Either<Failure, String>> removeWatchlist(TvDetail detail) async {
     try {
-      final result = await localDataSource
-          .removeWatchlist(detail.toMovieTable());
+      final result =
+          await localDataSource.removeWatchlist(detail.toMovieTable());
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -98,11 +98,18 @@ class TvRepositoryImpl implements TvRepository {
     return result != null;
   }
 
-  // @override
-  // Future<Either<Failure, List<TvSeries>>> getWatchlistMovies() async {
-  //   final result = await localDataSource.getWatchlistMovies();
-  //   return Right(result.map((data) => data.toTvEntity()).toList());
-  // }
+  @override
+  Future<Either<Failure, List<TvSeries>>> getWatchlistMovies() async {
+    final result = await localDataSource.getWatchlistMovies();
+    return Right(result
+        .map((data) => TvSeries.watchlist(
+              id: data.id,
+              overview: data.overview,
+              posterPath: data.posterPath,
+              title: data.title,
+            ))
+        .toList());
+  }
 
   @override
   Future<Either<Failure, List<TvSeries>>> getTvRecommendations(int id) async {

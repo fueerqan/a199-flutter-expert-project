@@ -1,7 +1,7 @@
-import 'package:ditonton/data/models/tv/tv_model.dart';
-import 'package:ditonton/data/models/tv/tv_response.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tv_series/data/models/tv_model.dart';
+import 'package:tv_series/data/models/tv_response.dart';
+import 'package:tv_series/domain/entities/tv.dart';
 
 void main() {
   group("Tv Response", () {

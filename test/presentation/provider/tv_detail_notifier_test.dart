@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:common/common/failure.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
-import 'package:ditonton/domain/usecases/get_tv_detail.dart';
-import 'package:ditonton/domain/usecases/get_tv_recommendations.dart';
-import 'package:ditonton/domain/usecases/get_tv_watchlist_status.dart';
-import 'package:ditonton/domain/usecases/remove_tv_watchlist.dart';
-import 'package:ditonton/domain/usecases/save_tv_watchlist.dart';
 import 'package:common/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tv_series/domain/entities/tv.dart';
+import 'package:tv_series/domain/usecases/get_tv_detail.dart';
+import 'package:tv_series/domain/usecases/get_tv_recommendations.dart';
+import 'package:tv_series/domain/usecases/get_tv_watchlist_status.dart';
+import 'package:tv_series/domain/usecases/remove_tv_watchlist.dart';
+import 'package:tv_series/domain/usecases/save_tv_watchlist.dart';
+import 'package:tv_series/presentation/providers/tv_detail_notifier.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'tv_detail_notifier_test.mocks.dart';

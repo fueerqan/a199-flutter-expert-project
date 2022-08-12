@@ -1,11 +1,11 @@
+import 'package:common/presentation/common/genre.dart';
 import 'package:dartz/dartz.dart';
 import 'package:common/data/models/movie_table.dart';
 import 'package:common/data/models/movie_type.dart';
-import 'package:ditonton/domain/entities/common/genre.dart';
-import 'package:ditonton/domain/entities/movie/movie.dart';
-import 'package:ditonton/domain/entities/movie/movie_detail.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
-import 'package:ditonton/domain/entities/tv/tv_detail.dart';
+import 'package:movies/domain/movie/movie.dart';
+import 'package:movies/domain/movie/movie_detail.dart';
+import 'package:tv_series/domain/entities/tv.dart';
+import 'package:tv_series/domain/entities/tv_detail.dart';
 
 final testMovie = Movie(
   adult: false,

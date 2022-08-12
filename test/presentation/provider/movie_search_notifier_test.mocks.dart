@@ -6,11 +6,11 @@ import 'dart:async' as _i5;
 
 import 'package:common/common/failure.dart' as _i6;
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:ditonton/domain/entities/movie/movie.dart' as _i7;
-import 'package:ditonton/domain/entities/tv/tv.dart' as _i8;
-import 'package:movies/domain/repositories/movie_repository.dart' as _i2;
+import 'package:ditonton/domain/repositories/search_repository.dart' as _i2;
 import 'package:ditonton/domain/usecases/search_movies.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:movies/domain/movie/movie.dart' as _i7;
+import 'package:tv_series/domain/entities/tv.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,7 +22,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeMovieRepository_0 extends _i1.Fake implements _i2.MovieRepository {}
+class _FakeSearchRepository_0 extends _i1.Fake implements _i2.SearchRepository {
+}
 
 class _FakeEither_1<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
 
@@ -35,9 +36,9 @@ class MockSearchMovies extends _i1.Mock implements _i4.SearchMovies {
   }
 
   @override
-  _i2.MovieRepository get repository =>
+  _i2.SearchRepository get repository =>
       (super.noSuchMethod(Invocation.getter(#repository),
-          returnValue: _FakeMovieRepository_0()) as _i2.MovieRepository);
+          returnValue: _FakeSearchRepository_0()) as _i2.SearchRepository);
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i3.Either<List<_i7.Movie>, List<_i8.TvSeries>>>>
       execute(String? query, String? type) => (super.noSuchMethod(

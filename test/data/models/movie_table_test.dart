@@ -1,10 +1,10 @@
 import 'package:common/data/models/movie_table.dart';
 import 'package:common/data/models/movie_type.dart';
-import 'package:ditonton/domain/entities/movie/movie.dart';
-import 'package:ditonton/domain/entities/movie/movie_detail.dart';
-import 'package:ditonton/domain/entities/tv/tv.dart';
-import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movies/domain/movie/movie.dart';
+import 'package:movies/domain/movie/movie_detail.dart';
+import 'package:tv_series/domain/entities/tv.dart';
+import 'package:tv_series/domain/entities/tv_detail.dart';
 
 void main() {
   final tMovieTableMovie = MovieTable(
@@ -54,7 +54,7 @@ void main() {
       );
 
       // act
-      final result = MovieTable.fromEntity(movie: movieDetail);
+      final result = movieDetail.toMovieTable();
 
       // assert
       expect(result, tMovieTableMovie);
@@ -76,7 +76,7 @@ void main() {
       );
 
       // act
-      final result = MovieTable.fromEntity(tv: tvDetail);
+      final result = tvDetail.toMovieTable();
 
       // assert
       expect(result, tMovieTableTv);
@@ -130,7 +130,12 @@ void main() {
       // arrange
 
       // act
-      final result = tMovieTableMovie.toEntity();
+      final result = Movie.watchlist(
+        id: tMovieTableMovie.id,
+        overview: tMovieTableMovie.overview,
+        posterPath: tMovieTableMovie.posterPath,
+        title: tMovieTableMovie.title,
+      );
 
       // assert
       final movieEntity = Movie(
@@ -154,7 +159,12 @@ void main() {
       // arrange
 
       // act
-      final result = tMovieTableTv.toTvEntity();
+      final result = TvSeries.watchlist(
+        id: tMovieTableTv.id,
+        overview: tMovieTableTv.overview,
+        posterPath: tMovieTableTv.posterPath,
+        title: tMovieTableTv.title,
+      );
 
       // assert
       final tvEntity = TvSeries(

@@ -1,7 +1,7 @@
+import 'package:about/about_page.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
 import 'package:common/common/utils.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -113,9 +113,9 @@ class MyApp extends StatelessWidget {
               );
             case searchRoute:
               return CupertinoPageRoute(builder: (_) => SearchPage());
-            case WatchlistMoviesPage.ROUTE_NAME:
+            case watchListRoute:
               return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
-            case AboutPage.ROUTE_NAME:
+            case aboutRoute:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:
               return MaterialPageRoute(builder: (_) {
