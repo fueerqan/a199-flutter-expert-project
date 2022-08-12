@@ -1,5 +1,5 @@
 import 'package:common/common/exception.dart';
-import 'package:common/data/db/database_helper.dart';
+import 'package:common/helper/database_helper.dart';
 import 'package:common/data/models/movie_table.dart';
 
 abstract class MovieLocalDataSource {

@@ -1,5 +1,5 @@
 import 'package:common/data/datasource/movie_local_data_source.dart';
-import 'package:common/data/db/database_helper.dart';
+import 'package:common/helper/database_helper.dart';
 import 'package:ditonton/data/datasources/remote_datasource.dart';
 import 'package:ditonton/domain/repositories/search_repository.dart';
 import 'package:ditonton/domain/repositories/watchlist_repository.dart';
