@@ -2,6 +2,7 @@ import 'package:about/about_page.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
 import 'package:common/common/utils.dart';
+import 'package:ditonton/injection.dart' as di;
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -17,17 +18,12 @@ import 'package:movies/presentation/provider/movie_list_notifier.dart';
 import 'package:movies/presentation/provider/popular_movies_notifier.dart';
 import 'package:movies/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:provider/provider.dart';
-import 'package:ditonton/injection.dart' as di;
 import 'package:tv_series/presentation/pages/now_playing_tv_page.dart';
 import 'package:tv_series/presentation/pages/popular_tv_page.dart';
 import 'package:tv_series/presentation/pages/top_rated_tv_page.dart';
 import 'package:tv_series/presentation/pages/tv_detail_page.dart';
 import 'package:tv_series/presentation/pages/tv_list_page.dart';
-import 'package:tv_series/presentation/providers/now_playing_tv_notifier.dart';
-import 'package:tv_series/presentation/providers/popular_tv_notifier.dart';
-import 'package:tv_series/presentation/providers/top_rated_tv_notifier.dart';
 import 'package:tv_series/presentation/providers/tv_detail_notifier.dart';
-import 'package:tv_series/presentation/providers/tv_list_notifier.dart';
 
 void main() {
   di.init();
@@ -58,19 +54,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<WatchlistMovieNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<NowPlayingTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TvDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvNotifier>(),
         ),
       ],
       child: MaterialApp(

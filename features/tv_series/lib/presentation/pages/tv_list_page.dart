@@ -1,28 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
-import 'package:common/common/state_enum.dart';
 import 'package:common/presentation/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv_series/domain/entities/tv.dart';
-import 'package:tv_series/presentation/providers/tv_list_notifier.dart';
+import 'package:tv_series/presentation/bloc/now_playing/now_playing_bloc.dart';
+import 'package:tv_series/presentation/bloc/popular/popular_bloc.dart';
+import 'package:tv_series/presentation/bloc/top_rated/top_rated_bloc.dart';
 
-class TvListPage extends StatefulWidget {
-  @override
-  _TvListPageState createState() => _TvListPageState();
-}
-
-class _TvListPageState extends State<TvListPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => Provider.of<TvListNotifier>(context, listen: false)
-      ..fetchNowPlayingTvSeries()
-      ..fetchPopularTvSeries()
-      ..fetchTopRatedTvSeries());
-  }
-
+class TvListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,68 +28,86 @@ class _TvListPageState extends State<TvListPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSubHeading(
-                title: 'Now Playing',
-                onTap: () =>
-                    Navigator.pushNamed(context, tvNowPlayingRoute),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    NowPlayingBloc()..add(NowPlayingFetchDataEvent()),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.nowPlayingState;
-                if (state == RequestState.Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TvSeriesList(data.nowPlayingTVs);
-                } else {
-                  return const Text('Failed');
-                }
-              }),
-              _buildSubHeading(
-                title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, tvPopularRoute),
+              BlocProvider(
+                create: (_) => PopularBloc()..add(PopularFetchDataEvent()),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.popularTVsState;
-                if (state == RequestState.Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TvSeriesList(data.popularTVs);
-                } else {
-                  return const Text('Failed');
-                }
-              }),
-              _buildSubHeading(
-                title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, tvTopRatedRoute),
+              BlocProvider(
+                create: (_) => TopRatedBloc()..add(TopRatedFetchDataEvent()),
               ),
-              Consumer<TvListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedTVsState;
-                if (state == RequestState.Loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TvSeriesList(data.topRatedTVs);
-                } else {
-                  return const Text('Failed');
-                }
-              }),
             ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSubHeading(
+                  title: 'Now Playing',
+                  onTap: () => Navigator.pushNamed(context, tvNowPlayingRoute),
+                ),
+                BlocBuilder<NowPlayingBloc, NowPlayingState>(
+                  builder: (context, state) {
+                    if (state is NowPlayingFetchSuccessState) {
+                      return TvSeriesList(state.tvSeries);
+                    } else if (state is NowPlayingFetchFailedState) {
+                      return _buildError(state.message);
+                    } else {
+                      return _buildLoading();
+                    }
+                  },
+                ),
+                _buildSubHeading(
+                  title: 'Popular',
+                  onTap: () => Navigator.pushNamed(context, tvPopularRoute),
+                ),
+                BlocBuilder<PopularBloc, PopularState>(
+                  builder: (context, state) {
+                    if (state is PopularFetchSuccessState) {
+                      return TvSeriesList(state.tvSeries);
+                    } else if (state is PopularFetchFailedState) {
+                      return _buildError(state.message);
+                    } else {
+                      return _buildLoading();
+                    }
+                  },
+                ),
+                _buildSubHeading(
+                  title: 'Top Rated',
+                  onTap: () => Navigator.pushNamed(context, tvTopRatedRoute),
+                ),
+                BlocBuilder<TopRatedBloc, TopRatedState>(
+                  builder: (context, state) {
+                    if (state is TopRatedFetchSuccessState) {
+                      return TvSeriesList(state.tvSeries);
+                    } else if (state is TopRatedFetchFailedState) {
+                      return _buildError(state.message);
+                    } else {
+                      return _buildLoading();
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Row _buildSubHeading({required String title, required Function() onTap}) {
+  Widget _buildLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildError(String message) {
+    return Center(child: Text(message));
+  }
+
+  Widget _buildSubHeading({required String title, required Function() onTap}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
