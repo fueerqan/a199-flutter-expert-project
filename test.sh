@@ -68,7 +68,7 @@ case $1 in
         # if no parameter passed
         if [ -z $1 ]; then
             rm -f coverage/lcov.info
-            dirs=(`find . -maxdepth 2 -type d`)
+            dirs=(`find . -maxdepth 3 -type d`)
             for dir in "${dirs[@]}"; do
                 runTests $dir $currentDir
             done
