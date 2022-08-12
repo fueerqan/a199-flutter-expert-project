@@ -1,16 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
-import 'package:common/common/state_enum.dart';
 import 'package:common/presentation/common/genre.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';
 import 'package:tv_series/presentation/bloc/detail/tv_detail_bloc.dart';
-import 'package:tv_series/presentation/providers/tv_detail_notifier.dart';
 
 class TvDetailPage extends StatelessWidget {
   TvDetailPage({required this.id});
@@ -89,6 +86,8 @@ class DetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Recommendations");
+    print(recommendations);
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Stack(
@@ -259,66 +258,49 @@ class DetailContent extends StatelessWidget {
                                   itemCount: detail.seasons.length,
                                 ),
                               ),
-                            Consumer<TvDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.Loading) {
-                                  return const Center(
-                                    child: const CircularProgressIndicator(),
-                                  );
-                                } else if (data.recommendationState ==
-                                    RequestState.Error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
-                                    RequestState.Loaded) {
-                                  return Container(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final movie = recommendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                tvDetailRoute,
-                                                arguments: movie.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    Container(
-                                                  width: 100,
-                                                  child: const Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
-                                                  ),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
+                            if (recommendations.isNotEmpty)
+                              Container(
+                                height: 150,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    final movie = recommendations[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pushReplacementNamed(
+                                            context,
+                                            tvDetailRoute,
+                                            arguments: movie.id,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                            placeholder: (context, url) =>
+                                                Container(
+                                              width: 100,
+                                              child: const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
                                               ),
                                             ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Icon(Icons.error),
                                           ),
-                                        );
-                                      },
-                                      itemCount: recommendations.length,
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  itemCount: recommendations.length,
+                                ),
+                              ),
                           ],
                         ),
                       ),

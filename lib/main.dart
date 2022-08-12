@@ -23,7 +23,6 @@ import 'package:tv_series/presentation/pages/popular_tv_page.dart';
 import 'package:tv_series/presentation/pages/top_rated_tv_page.dart';
 import 'package:tv_series/presentation/pages/tv_detail_page.dart';
 import 'package:tv_series/presentation/pages/tv_list_page.dart';
-import 'package:tv_series/presentation/providers/tv_detail_notifier.dart';
 
 void main() {
   di.init();
@@ -52,9 +51,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistMovieNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvDetailNotifier>(),
         ),
       ],
       child: MaterialApp(
