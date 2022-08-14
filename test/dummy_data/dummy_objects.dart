@@ -1,12 +1,12 @@
-import 'package:common/presentation/common/genre.dart';
-import 'package:dartz/dartz.dart';
+
 import 'package:common/data/models/movie_table.dart';
 import 'package:common/data/models/movie_type.dart';
+import 'package:common/presentation/common/genre.dart';
+import 'package:dartz/dartz.dart';
 import 'package:movies/domain/movie/movie.dart';
 import 'package:movies/domain/movie/movie_detail.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';
-
 
 final testMovie = Movie(
   adult: false,
@@ -27,52 +27,11 @@ final testMovie = Movie(
 
 final testMovieList = <Either<Movie,TvSeries>>[Left(testMovie)];
 
-final testMovieDetail = MovieDetail(
-  adult: false,
-  backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
-  id: 1,
-  originalTitle: 'originalTitle',
-  overview: 'overview',
-  posterPath: 'posterPath',
-  releaseDate: 'releaseDate',
-  runtime: 120,
-  title: 'title',
-  voteAverage: 1,
-  voteCount: 1,
-);
-
 final testWatchlistMovie = Movie.watchlist(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
-);
-
-final testTvDetail = TvDetail(
-  backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
-  id: 1,
-  originalName: "originalName",
-  overview: 'overview',
-  posterPath: 'posterPath',
-  firstAirDate: 'releaseDate',
-  name: 'title',
-  voteAverage: 1,
-  voteCount: 1,
-  createdBy: [],
-  episodeRunTime: [],
-  languages: [],
-  productionCompanies: [],
-  seasons: [],
-);
-
-final testTvMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-  movieType: MovieType.tv,
 );
 
 final testWatchlistTv = TvSeries.watchlist(

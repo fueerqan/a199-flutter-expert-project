@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tv_series/domain/usecases/get_tv_watchlist_status.dart';
 
-import '../../helpers/test_helper.mocks.dart';
+import 'get_now_playing_tv_test.mocks.dart';
 
 void main() {
   late GetTvWatchListStatus usecase;

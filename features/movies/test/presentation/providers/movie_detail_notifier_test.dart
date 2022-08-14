@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:common/common/failure.dart';
 import 'package:common/common/state_enum.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,8 +12,8 @@ import 'package:movies/domain/usecases/remove_watchlist.dart';
 import 'package:movies/domain/usecases/save_watchlist.dart';
 import 'package:movies/presentation/provider/movie_detail_notifier.dart';
 
-import '../../../../../test/dummy_data/dummy_objects.dart';
-import '../../../../../test/presentation/provider/movie_detail_notifier_test.mocks.dart';
+import '../../dummy_data/dummy_data.dart';
+import 'movie_detail_notifier_test.mocks.dart';
 
 @GenerateMocks([
   GetMovieDetail,
@@ -49,7 +49,7 @@ void main() {
       });
   });
 
-  final tId = 1;
+  const tId = 1;
 
   final tMovie = Movie(
     adult: false,

@@ -7,29 +7,29 @@ import 'package:movies/domain/movie/movie.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  // late SearchMovies usecase;
-  // late MockMovieRepository mockMovieRepository;
+  late SearchMovies usecase;
+  late MockSearchRepository mockMovieRepository;
 
-  // setUp(() {
-  //   mockMovieRepository = MockMovieRepository();
-  //   usecase = SearchMovies(mockMovieRepository);
-  // });
+  setUp(() {
+    mockMovieRepository = MockSearchRepository();
+    usecase = SearchMovies(mockMovieRepository);
+  });
 
-  // final tMovies = <Movie>[];
-  // final tQuery = 'Spiderman';
+  final tMovies = <Movie>[];
+  final tQuery = 'Spiderman';
 
-  // test('should get list of movies from the repository', () async {
-  //   // arrange
-  //   when(mockMovieRepository.searchMovies(tQuery, "Movie"))
-  //       .thenAnswer((_) async => Right(Left(tMovies)));
-  //   // act
-  //   final result = await usecase.execute(tQuery, "Movie");
-  //   // assert
-  //   List<Movie> expectedResult = [];
+  test('should get list of movies from the repository', () async {
+    // arrange
+    when(mockMovieRepository.searchMovies(tQuery, "Movie"))
+        .thenAnswer((_) async => Right(Left(tMovies)));
+    // act
+    final result = await usecase.execute(tQuery, "Movie");
+    // assert
+    List<Movie> expectedResult = [];
 
-  //   final resultList = result.getOrElse(() => Left([]));
-  //   resultList.fold((l) => expectedResult = l, (r) => null);
+    final resultList = result.getOrElse(() => Left([]));
+    resultList.fold((l) => expectedResult = l, (r) => null);
 
-  //   expect(expectedResult, tMovies);
-  // });
+    expect(expectedResult, tMovies);
+  });
 }

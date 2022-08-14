@@ -5,7 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:movies/domain/repositories/movie_repository.dart';
 import 'package:movies/domain/usecases/get_movie_detail.dart';
 
-import '../../../../../test/dummy_data/dummy_objects.dart';
+import '../../dummy_data/dummy_data.dart';
 import 'get_movie_detail_test.mocks.dart';
 
 @GenerateMocks([

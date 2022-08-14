@@ -8,7 +8,7 @@ import 'package:movies/presentation/pages/top_rated_movies_page.dart';
 import 'package:movies/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:provider/provider.dart';
 
-import 'top_rated_movies_page_test.mocks.dart';
+import '../../../../../test/presentation/pages/top_rated_movies_page_test.mocks.dart';
 
 @GenerateMocks([TopRatedMoviesNotifier])
 void main() {

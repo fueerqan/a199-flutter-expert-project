@@ -16,8 +16,8 @@ import 'package:movies/data/models/movie_model.dart';
 import 'package:movies/data/repositories/movie_repository_impl.dart';
 import 'package:movies/domain/movie/movie.dart';
 
-import '../../../../../test/dummy_data/dummy_objects.dart';
-import '../../../../../test/helpers/test_helper.mocks.dart';
+import '../../dummy_data/dummy_data.dart';
+import 'movie_repository_impl_test.mocks.dart';
 
 @GenerateMocks([
   MovieRemoteDataSource,

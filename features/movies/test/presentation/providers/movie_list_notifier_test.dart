@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:common/common/failure.dart';
 import 'package:common/common/state_enum.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +10,7 @@ import 'package:movies/domain/usecases/get_popular_movies.dart';
 import 'package:movies/domain/usecases/get_top_rated_movies.dart';
 import 'package:movies/presentation/provider/movie_list_notifier.dart';
 
-import '../../../../../test/presentation/provider/movie_list_notifier_test.mocks.dart';
+import 'movie_list_notifier_test.mocks.dart';
 
 @GenerateMocks([GetNowPlayingMovies, GetPopularMovies, GetTopRatedMovies])
 void main() {

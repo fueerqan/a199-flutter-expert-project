@@ -8,7 +8,7 @@ import 'package:movies/presentation/pages/popular_movies_page.dart';
 import 'package:movies/presentation/provider/popular_movies_notifier.dart';
 import 'package:provider/provider.dart';
 
-import 'popular_movies_page_test.mocks.dart';
+import '../../../../../test/presentation/pages/popular_movies_page_test.mocks.dart';
 
 @GenerateMocks([PopularMoviesNotifier])
 void main() {
