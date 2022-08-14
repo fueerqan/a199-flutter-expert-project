@@ -4,6 +4,7 @@ import 'package:common/data/models/movie_type.dart';
 import 'package:common/presentation/common/genre.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movies/data/models/movie_detail_model.dart';
+import 'package:movies/domain/mapper/movie_table_mapper.dart';
 import 'package:movies/domain/movie/movie_detail.dart';
 
 void main() {
@@ -225,7 +226,7 @@ void main() {
       );
 
       // act
-      final result = movieDetail.toMovieTable();
+      final result = MovieTableMapper.mapMovieDetailToMovieTable(movieDetail);
 
       // assert
       expect(result, tMovieTableMovie);

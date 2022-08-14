@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:common/common/exception.dart';
 import 'package:common/common/failure.dart';
-import 'package:dartz/dartz.dart';
 import 'package:common/data/datasource/movie_local_data_source.dart';
+import 'package:dartz/dartz.dart';
 import 'package:tv_series/data/datasources/tv_remote_data_source.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';
+import 'package:tv_series/domain/mapper/movie_table_mapper.dart';
 import 'package:tv_series/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -71,7 +72,7 @@ class TvRepositoryImpl implements TvRepository {
   Future<Either<Failure, String>> saveWatchlist(TvDetail detail) async {
     try {
       final result = await localDataSource.insertWatchlist(
-        detail.toMovieTable(),
+        MovieTableMapper.mapTvDetailToMovieTable(detail),
       );
       return Right(result);
     } on DatabaseException catch (e) {
@@ -84,8 +85,9 @@ class TvRepositoryImpl implements TvRepository {
   @override
   Future<Either<Failure, String>> removeWatchlist(TvDetail detail) async {
     try {
-      final result =
-          await localDataSource.removeWatchlist(detail.toMovieTable());
+      final result = await localDataSource.removeWatchlist(
+        MovieTableMapper.mapTvDetailToMovieTable(detail),
+      );
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));

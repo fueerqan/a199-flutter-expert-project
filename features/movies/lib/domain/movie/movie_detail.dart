@@ -1,5 +1,3 @@
-import 'package:common/data/models/movie_table.dart';
-import 'package:common/data/models/movie_type.dart';
 import 'package:common/presentation/common/genre.dart';
 import 'package:equatable/equatable.dart';
 
@@ -47,11 +45,4 @@ class MovieDetail extends Equatable {
         voteCount,
       ];
 
-  MovieTable toMovieTable() => MovieTable(
-        id: id,
-        title: title,
-        posterPath: posterPath,
-        overview: overview,
-        movieType: MovieType.movie,
-      );
 }

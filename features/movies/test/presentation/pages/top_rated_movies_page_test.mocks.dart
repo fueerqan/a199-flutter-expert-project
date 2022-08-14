@@ -3,15 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:ui' as _i7;
+import 'dart:async' as _i7;
+import 'dart:ui' as _i8;
 
-import 'package:common/common/state_enum.dart' as _i4;
+import 'package:common/common/state_enum.dart' as _i5;
+import 'package:firebase_analytics/firebase_analytics.dart' as _i9;
+import 'package:firebase_analytics_platform_interface/firebase_analytics_platform_interface.dart'
+    as _i10;
+import 'package:firebase_core/firebase_core.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:movies/domain/movie/movie.dart' as _i5;
+import 'package:movies/domain/movie/movie.dart' as _i6;
 import 'package:movies/domain/usecases/get_top_rated_movies.dart' as _i2;
 import 'package:movies/presentation/provider/top_rated_movies_notifier.dart'
-    as _i3;
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -30,11 +34,16 @@ class _FakeGetTopRatedMovies_0 extends _i1.SmartFake
       : super(parent, parentInvocation);
 }
 
+class _FakeFirebaseApp_1 extends _i1.SmartFake implements _i3.FirebaseApp {
+  _FakeFirebaseApp_1(Object parent, Invocation parentInvocation)
+      : super(parent, parentInvocation);
+}
+
 /// A class which mocks [TopRatedMoviesNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTopRatedMoviesNotifier extends _i1.Mock
-    implements _i3.TopRatedMoviesNotifier {
+    implements _i4.TopRatedMoviesNotifier {
   MockTopRatedMoviesNotifier() {
     _i1.throwOnMissingStub(this);
   }
@@ -46,11 +55,11 @@ class MockTopRatedMoviesNotifier extends _i1.Mock
                   this, Invocation.getter(#getTopRatedMovies)))
           as _i2.GetTopRatedMovies);
   @override
-  _i4.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i4.RequestState.Empty) as _i4.RequestState);
+  _i5.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _i5.RequestState.Empty) as _i5.RequestState);
   @override
-  List<_i5.Movie> get movies => (super.noSuchMethod(Invocation.getter(#movies),
-      returnValue: <_i5.Movie>[]) as List<_i5.Movie>);
+  List<_i6.Movie> get movies => (super.noSuchMethod(Invocation.getter(#movies),
+      returnValue: <_i6.Movie>[]) as List<_i6.Movie>);
   @override
   String get message =>
       (super.noSuchMethod(Invocation.getter(#message), returnValue: '')
@@ -60,16 +69,16 @@ class MockTopRatedMoviesNotifier extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
           as bool);
   @override
-  _i6.Future<void> fetchTopRatedMovies() => (super.noSuchMethod(
+  _i7.Future<void> fetchTopRatedMovies() => (super.noSuchMethod(
       Invocation.method(#fetchTopRatedMovies, []),
-      returnValue: _i6.Future<void>.value(),
-      returnValueForMissingStub: _i6.Future<void>.value()) as _i6.Future<void>);
+      returnValue: _i7.Future<void>.value(),
+      returnValueForMissingStub: _i7.Future<void>.value()) as _i7.Future<void>);
   @override
-  void addListener(_i7.VoidCallback? listener) =>
+  void addListener(_i8.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i7.VoidCallback? listener) =>
+  void removeListener(_i8.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]),
           returnValueForMissingStub: null);
   @override
@@ -79,4 +88,715 @@ class MockTopRatedMoviesNotifier extends _i1.Mock
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []),
           returnValueForMissingStub: null);
+}
+
+/// A class which mocks [FirebaseAnalytics].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFirebaseAnalytics extends _i1.Mock implements _i9.FirebaseAnalytics {
+  MockFirebaseAnalytics() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.FirebaseApp get app => (super.noSuchMethod(Invocation.getter(#app),
+          returnValue: _FakeFirebaseApp_1(this, Invocation.getter(#app)))
+      as _i3.FirebaseApp);
+  @override
+  set app(_i3.FirebaseApp? _app) =>
+      super.noSuchMethod(Invocation.setter(#app, _app),
+          returnValueForMissingStub: null);
+  @override
+  _i7.Future<String?> get appInstanceId =>
+      (super.noSuchMethod(Invocation.getter(#appInstanceId),
+          returnValue: _i7.Future<String?>.value()) as _i7.Future<String?>);
+  @override
+  Map<dynamic, dynamic> get pluginConstants =>
+      (super.noSuchMethod(Invocation.getter(#pluginConstants),
+          returnValue: <dynamic, dynamic>{}) as Map<dynamic, dynamic>);
+  @override
+  _i7.Future<bool> isSupported() =>
+      (super.noSuchMethod(Invocation.method(#isSupported, []),
+          returnValue: _i7.Future<bool>.value(false)) as _i7.Future<bool>);
+  @override
+  _i7.Future<void> logEvent(
+          {String? name,
+          Map<String, Object?>? parameters,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logEvent, [], {
+                #name: name,
+                #parameters: parameters,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> setConsent(
+          {bool? adStorageConsentGranted,
+          bool? analyticsStorageConsentGranted}) =>
+      (super.noSuchMethod(
+              Invocation.method(#setConsent, [], {
+                #adStorageConsentGranted: adStorageConsentGranted,
+                #analyticsStorageConsentGranted: analyticsStorageConsentGranted
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> setDefaultEventParameters(
+          Map<String, Object?>? defaultParameters) =>
+      (super.noSuchMethod(
+          Invocation.method(#setDefaultEventParameters, [defaultParameters]),
+          returnValue: _i7.Future<void>.value(),
+          returnValueForMissingStub:
+              _i7.Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> setAnalyticsCollectionEnabled(bool? enabled) =>
+      (super.noSuchMethod(
+              Invocation.method(#setAnalyticsCollectionEnabled, [enabled]),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> setUserId(
+          {String? id, _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #setUserId, [], {#id: id, #callOptions: callOptions}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> setCurrentScreen(
+          {String? screenName,
+          String? screenClassOverride = r'Flutter',
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#setCurrentScreen, [], {
+                #screenName: screenName,
+                #screenClassOverride: screenClassOverride,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> setUserProperty(
+          {String? name,
+          String? value,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#setUserProperty, [],
+                  {#name: name, #value: value, #callOptions: callOptions}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> resetAnalyticsData() => (super.noSuchMethod(
+      Invocation.method(#resetAnalyticsData, []),
+      returnValue: _i7.Future<void>.value(),
+      returnValueForMissingStub: _i7.Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> logAddPaymentInfo(
+          {String? coupon,
+          String? currency,
+          String? paymentType,
+          double? value,
+          List<_i10.AnalyticsEventItem>? items,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logAddPaymentInfo, [], {
+                #coupon: coupon,
+                #currency: currency,
+                #paymentType: paymentType,
+                #value: value,
+                #items: items,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logAddShippingInfo(
+          {String? coupon,
+          String? currency,
+          double? value,
+          String? shippingTier,
+          List<_i10.AnalyticsEventItem>? items,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logAddShippingInfo, [], {
+                #coupon: coupon,
+                #currency: currency,
+                #value: value,
+                #shippingTier: shippingTier,
+                #items: items,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logAddToCart(
+          {List<_i10.AnalyticsEventItem>? items,
+          double? value,
+          String? currency,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logAddToCart, [], {
+                #items: items,
+                #value: value,
+                #currency: currency,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logAddToWishlist(
+          {List<_i10.AnalyticsEventItem>? items,
+          double? value,
+          String? currency,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logAddToWishlist, [], {
+                #items: items,
+                #value: value,
+                #currency: currency,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logEcommercePurchase(
+          {String? currency,
+          double? value,
+          String? transactionId,
+          double? tax,
+          double? shipping,
+          String? coupon,
+          String? location,
+          int? numberOfNights,
+          int? numberOfRooms,
+          int? numberOfPassengers,
+          String? origin,
+          String? destination,
+          String? startDate,
+          String? endDate,
+          String? travelClass}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logEcommercePurchase, [], {
+                #currency: currency,
+                #value: value,
+                #transactionId: transactionId,
+                #tax: tax,
+                #shipping: shipping,
+                #coupon: coupon,
+                #location: location,
+                #numberOfNights: numberOfNights,
+                #numberOfRooms: numberOfRooms,
+                #numberOfPassengers: numberOfPassengers,
+                #origin: origin,
+                #destination: destination,
+                #startDate: startDate,
+                #endDate: endDate,
+                #travelClass: travelClass
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logAdImpression(
+          {String? adPlatform,
+          String? adSource,
+          String? adFormat,
+          String? adUnitName,
+          double? value,
+          String? currency,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logAdImpression, [], {
+                #adPlatform: adPlatform,
+                #adSource: adSource,
+                #adFormat: adFormat,
+                #adUnitName: adUnitName,
+                #value: value,
+                #currency: currency,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logAppOpen({_i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logAppOpen, [], {#callOptions: callOptions}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logBeginCheckout(
+          {double? value,
+          String? currency,
+          List<_i10.AnalyticsEventItem>? items,
+          String? coupon,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logBeginCheckout, [], {
+                #value: value,
+                #currency: currency,
+                #items: items,
+                #coupon: coupon,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logCampaignDetails(
+          {String? source,
+          String? medium,
+          String? campaign,
+          String? term,
+          String? content,
+          String? aclid,
+          String? cp1,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logCampaignDetails, [], {
+                #source: source,
+                #medium: medium,
+                #campaign: campaign,
+                #term: term,
+                #content: content,
+                #aclid: aclid,
+                #cp1: cp1,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logEarnVirtualCurrency(
+          {String? virtualCurrencyName,
+          num? value,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logEarnVirtualCurrency, [], {
+                #virtualCurrencyName: virtualCurrencyName,
+                #value: value,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logPresentOffer(
+          {String? itemId,
+          String? itemName,
+          String? itemCategory,
+          int? quantity,
+          double? price,
+          double? value,
+          String? currency,
+          String? itemLocationId}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logPresentOffer, [], {
+                #itemId: itemId,
+                #itemName: itemName,
+                #itemCategory: itemCategory,
+                #quantity: quantity,
+                #price: price,
+                #value: value,
+                #currency: currency,
+                #itemLocationId: itemLocationId
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logPurchaseRefund(
+          {String? currency, double? value, String? transactionId}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logPurchaseRefund, [], {
+                #currency: currency,
+                #value: value,
+                #transactionId: transactionId
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logGenerateLead(
+          {String? currency,
+          double? value,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logGenerateLead, [], {
+                #currency: currency,
+                #value: value,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logJoinGroup(
+          {String? groupId, _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logJoinGroup, [],
+                  {#groupId: groupId, #callOptions: callOptions}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logLevelUp(
+          {int? level,
+          String? character,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logLevelUp, [], {
+                #level: level,
+                #character: character,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logLevelStart(
+          {String? levelName, _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logLevelStart, [],
+                  {#levelName: levelName, #callOptions: callOptions}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logLevelEnd(
+          {String? levelName,
+          int? success,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logLevelEnd, [], {
+                #levelName: levelName,
+                #success: success,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSetCheckoutOption(
+          {int? checkoutStep, String? checkoutOption}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logSetCheckoutOption, [], {
+                #checkoutStep: checkoutStep,
+                #checkoutOption: checkoutOption
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logLogin(
+          {String? loginMethod, _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logLogin, [],
+                  {#loginMethod: loginMethod, #callOptions: callOptions}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logPostScore(
+          {int? score,
+          int? level,
+          String? character,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logPostScore, [], {
+                #score: score,
+                #level: level,
+                #character: character,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logPurchase(
+          {String? currency,
+          String? coupon,
+          double? value,
+          List<_i10.AnalyticsEventItem>? items,
+          double? tax,
+          double? shipping,
+          String? transactionId,
+          String? affiliation,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logPurchase, [], {
+                #currency: currency,
+                #coupon: coupon,
+                #value: value,
+                #items: items,
+                #tax: tax,
+                #shipping: shipping,
+                #transactionId: transactionId,
+                #affiliation: affiliation,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logRemoveFromCart(
+          {String? currency,
+          double? value,
+          List<_i10.AnalyticsEventItem>? items,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logRemoveFromCart, [], {
+                #currency: currency,
+                #value: value,
+                #items: items,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logScreenView(
+          {String? screenClass,
+          String? screenName,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logScreenView, [], {
+                #screenClass: screenClass,
+                #screenName: screenName,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSelectItem(
+          {String? itemListId,
+          String? itemListName,
+          List<_i10.AnalyticsEventItem>? items,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logSelectItem, [], {
+                #itemListId: itemListId,
+                #itemListName: itemListName,
+                #items: items,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSelectPromotion(
+          {String? creativeName,
+          String? creativeSlot,
+          List<_i10.AnalyticsEventItem>? items,
+          String? locationId,
+          String? promotionId,
+          String? promotionName,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logSelectPromotion, [], {
+                #creativeName: creativeName,
+                #creativeSlot: creativeSlot,
+                #items: items,
+                #locationId: locationId,
+                #promotionId: promotionId,
+                #promotionName: promotionName,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logViewCart(
+          {String? currency,
+          double? value,
+          List<_i10.AnalyticsEventItem>? items,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logViewCart, [], {
+                #currency: currency,
+                #value: value,
+                #items: items,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSearch(
+          {String? searchTerm,
+          int? numberOfNights,
+          int? numberOfRooms,
+          int? numberOfPassengers,
+          String? origin,
+          String? destination,
+          String? startDate,
+          String? endDate,
+          String? travelClass,
+          _i10.AnalyticsCallOptions? callOptions}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logSearch, [], {
+                #searchTerm: searchTerm,
+                #numberOfNights: numberOfNights,
+                #numberOfRooms: numberOfRooms,
+                #numberOfPassengers: numberOfPassengers,
+                #origin: origin,
+                #destination: destination,
+                #startDate: startDate,
+                #endDate: endDate,
+                #travelClass: travelClass,
+                #callOptions: callOptions
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSelectContent({String? contentType, String? itemId}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logSelectContent, [],
+                  {#contentType: contentType, #itemId: itemId}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logShare(
+          {String? contentType, String? itemId, String? method}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logShare, [], {
+                #contentType: contentType,
+                #itemId: itemId,
+                #method: method
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSignUp({String? signUpMethod}) => (super.noSuchMethod(
+      Invocation.method(#logSignUp, [], {#signUpMethod: signUpMethod}),
+      returnValue: _i7.Future<void>.value(),
+      returnValueForMissingStub: _i7.Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> logSpendVirtualCurrency(
+          {String? itemName, String? virtualCurrencyName, num? value}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logSpendVirtualCurrency, [], {
+                #itemName: itemName,
+                #virtualCurrencyName: virtualCurrencyName,
+                #value: value
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logTutorialBegin() => (super.noSuchMethod(
+      Invocation.method(#logTutorialBegin, []),
+      returnValue: _i7.Future<void>.value(),
+      returnValueForMissingStub: _i7.Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> logTutorialComplete() => (super.noSuchMethod(
+      Invocation.method(#logTutorialComplete, []),
+      returnValue: _i7.Future<void>.value(),
+      returnValueForMissingStub: _i7.Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> logUnlockAchievement({String? id}) => (super.noSuchMethod(
+      Invocation.method(#logUnlockAchievement, [], {#id: id}),
+      returnValue: _i7.Future<void>.value(),
+      returnValueForMissingStub: _i7.Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> logViewItem(
+          {String? currency,
+          double? value,
+          List<_i10.AnalyticsEventItem>? items}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logViewItem, [],
+                  {#currency: currency, #value: value, #items: items}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logViewItemList(
+          {List<_i10.AnalyticsEventItem>? items,
+          String? itemListId,
+          String? itemListName}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logViewItemList, [], {
+                #items: items,
+                #itemListId: itemListId,
+                #itemListName: itemListName
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logViewPromotion(
+          {String? creativeName,
+          String? creativeSlot,
+          List<_i10.AnalyticsEventItem>? items,
+          String? locationId,
+          String? promotionId,
+          String? promotionName}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logViewPromotion, [], {
+                #creativeName: creativeName,
+                #creativeSlot: creativeSlot,
+                #items: items,
+                #locationId: locationId,
+                #promotionId: promotionId,
+                #promotionName: promotionName
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logViewSearchResults({String? searchTerm}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #logViewSearchResults, [], {#searchTerm: searchTerm}),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> logRefund(
+          {String? currency,
+          String? coupon,
+          double? value,
+          double? tax,
+          double? shipping,
+          String? transactionId,
+          String? affiliation,
+          List<_i10.AnalyticsEventItem>? items}) =>
+      (super.noSuchMethod(
+              Invocation.method(#logRefund, [], {
+                #currency: currency,
+                #coupon: coupon,
+                #value: value,
+                #tax: tax,
+                #shipping: shipping,
+                #transactionId: transactionId,
+                #affiliation: affiliation,
+                #items: items
+              }),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
+  @override
+  _i7.Future<void> setSessionTimeoutDuration(Duration? timeout) =>
+      (super.noSuchMethod(
+              Invocation.method(#setSessionTimeoutDuration, [timeout]),
+              returnValue: _i7.Future<void>.value(),
+              returnValueForMissingStub: _i7.Future<void>.value())
+          as _i7.Future<void>);
 }

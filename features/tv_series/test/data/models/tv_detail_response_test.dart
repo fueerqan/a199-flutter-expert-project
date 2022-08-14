@@ -5,6 +5,7 @@ import 'package:common/presentation/common/genre.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tv_series/data/models/tv_detail_model.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';
+import 'package:tv_series/domain/mapper/movie_table_mapper.dart';
 
 void main() {
   final tTvDetailResponse = TvDetailResponse(
@@ -253,7 +254,7 @@ void main() {
     );
 
     // act
-    final result = tvDetail.toMovieTable();
+    final result = MovieTableMapper.mapTvDetailToMovieTable(tvDetail);
 
     // assert
     expect(result, tMovieTableTv);

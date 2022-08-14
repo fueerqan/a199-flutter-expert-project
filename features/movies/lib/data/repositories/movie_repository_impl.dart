@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:common/common/exception.dart';
 import 'package:common/common/failure.dart';
-import 'package:dartz/dartz.dart';
 import 'package:common/data/datasource/movie_local_data_source.dart';
+import 'package:dartz/dartz.dart';
 import 'package:movies/data/datasource/movie_remote_data_source.dart';
+import 'package:movies/domain/mapper/movie_table_mapper.dart';
 import 'package:movies/domain/movie/movie.dart';
 import 'package:movies/domain/movie/movie_detail.dart';
 import 'package:movies/domain/repositories/movie_repository.dart';
@@ -78,12 +79,11 @@ class MovieRepositoryImpl implements MovieRepository {
     }
   }
 
-
   @override
   Future<Either<Failure, String>> saveWatchlist(MovieDetail movie) async {
     try {
       final result = await localDataSource.insertWatchlist(
-        movie.toMovieTable(),
+        MovieTableMapper.mapMovieDetailToMovieTable(movie),
       );
       return Right(result);
     } on DatabaseException catch (e) {
@@ -97,7 +97,7 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, String>> removeWatchlist(MovieDetail movie) async {
     try {
       final result = await localDataSource.removeWatchlist(
-        movie.toMovieTable(),
+        MovieTableMapper.mapMovieDetailToMovieTable(movie),
       );
       return Right(result);
     } on DatabaseException catch (e) {

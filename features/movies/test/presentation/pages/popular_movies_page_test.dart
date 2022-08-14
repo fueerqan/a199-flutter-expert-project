@@ -1,4 +1,5 @@
 import 'package:common/common/state_enum.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -8,7 +9,8 @@ import 'package:movies/presentation/pages/popular_movies_page.dart';
 import 'package:movies/presentation/provider/popular_movies_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../test/presentation/pages/popular_movies_page_test.mocks.dart';
+import 'popular_movies_page_test.mocks.dart';
+import 'top_rated_movies_page_test.mocks.dart';
 
 @GenerateMocks([PopularMoviesNotifier])
 void main() {
@@ -16,6 +18,7 @@ void main() {
 
   setUp(() {
     mockNotifier = MockPopularMoviesNotifier();
+    AnalyticsHelper.analytics = MockFirebaseAnalytics();
   });
 
   Widget _makeTestableWidget(Widget body) {
