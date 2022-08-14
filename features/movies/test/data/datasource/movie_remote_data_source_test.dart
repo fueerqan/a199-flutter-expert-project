@@ -1,28 +1,32 @@
 import 'dart:convert';
 
 import 'package:common/common/exception.dart';
-import 'package:movies/data/datasource/movie_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movies/data/datasource/movie_remote_data_source.dart';
 import 'package:movies/data/models/movie_detail_model.dart';
-import 'package:movies/data/models/movie_model.dart';
 import 'package:movies/data/models/movie_response.dart';
-import 'package:tv_series/data/models/tv_response.dart';
 
-import '../../json_reader.dart';
-import '../../helpers/test_helper.mocks.dart';
+import '../../../../../test/json_reader.dart';
+import 'movie_remote_data_source_test.mocks.dart';
 
+@GenerateMocks([
+  IOClient,
+])
 void main() {
   const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
   const BASE_URL = 'https://api.themoviedb.org/3';
 
   late MovieRemoteDataSourceImpl dataSource;
-  late MockHttpClient mockHttpClient;
+  late MockIOClient client;
 
   setUp(() {
-    mockHttpClient = MockHttpClient();
-    dataSource = MovieRemoteDataSourceImpl(client: mockHttpClient);
+    client = MockIOClient();
+    dataSource = MovieRemoteDataSourceImpl();
+    MovieRemoteDataSourceImpl.client = client;
   });
 
   group('get Now Playing Movies', () {
@@ -33,8 +37,7 @@ void main() {
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient
-              .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/now_playing.json'), 200));
       // act
@@ -47,8 +50,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient
-              .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getNowPlayingMovies();
@@ -65,7 +67,7 @@ void main() {
     test('should return list of movies when response is success (200)',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/popular.json'), 200));
       // act
@@ -78,7 +80,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getPopularMovies();
@@ -94,7 +96,7 @@ void main() {
 
     test('should return list of movies when response code is 200 ', () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/top_rated.json'), 200));
       // act
@@ -106,7 +108,7 @@ void main() {
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getTopRatedMovies();
@@ -116,14 +118,14 @@ void main() {
   });
 
   group('get movie detail', () {
-    final tId = 1;
+    const tId = 1;
     final tMovieDetail = MovieDetailResponse.fromJson(
         json.decode(readJson('dummy_data/movie_detail.json')));
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
-          .thenAnswer((_) async =>
+      when(client.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY'))).thenAnswer(
+          (_) async =>
               http.Response(readJson('dummy_data/movie_detail.json'), 200));
       // act
       final result = await dataSource.getMovieDetail(tId);
@@ -134,7 +136,7 @@ void main() {
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
+      when(client.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getMovieDetail(tId);
@@ -147,12 +149,12 @@ void main() {
     final tMovieList = MovieResponse.fromJson(
             json.decode(readJson('dummy_data/movie_recommendations.json')))
         .movieList;
-    final tId = 1;
+    const tId = 1;
 
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient
+      when(client
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/movie_recommendations.json'), 200));
@@ -165,7 +167,7 @@ void main() {
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient
+      when(client
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
@@ -175,91 +177,91 @@ void main() {
     });
   });
 
-  group('search movies', () {
-    final tSearchResult = MovieResponse.fromJson(
-            json.decode(readJson('dummy_data/search_spiderman_movie.json')))
-        .movieList;
-    final tQuery = 'Spiderman';
+  // group('search movies', () {
+  //   final tSearchResult = MovieResponse.fromJson(
+  //           json.decode(readJson('dummy_data/search_spiderman_movie.json')))
+  //       .movieList;
+  //   final tQuery = 'Spiderman';
 
-    // test('should return list of movies when response code is 200', () async {
-    //   // arrange
-    //   when(mockHttpClient
-    //           .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
-    //       .thenAnswer((_) async => http.Response(
-    //           readJson('dummy_data/search_spiderman_movie.json'), 200));
-    //   // act
-    //   final result = await dataSource.searchMovies(tQuery, "movie");
+  // test('should return list of movies when response code is 200', () async {
+  //   // arrange
+  //   when(mockHttpClient
+  //           .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
+  //       .thenAnswer((_) async => http.Response(
+  //           readJson('dummy_data/search_spiderman_movie.json'), 200));
+  //   // act
+  //   final result = await dataSource.searchMovies(tQuery, "movie");
 
-    //   // assert
-    //   List<MovieModel> expectedResult = [];
-    //   result.fold((l) => expectedResult = l, (r) => null);
+  //   // assert
+  //   List<MovieModel> expectedResult = [];
+  //   result.fold((l) => expectedResult = l, (r) => null);
 
-    //   expect(expectedResult, tSearchResult);
-    // });
+  //   expect(expectedResult, tSearchResult);
+  // });
 
-    // test('should throw ServerException when response code is other than 200',
-    //     () async {
-    //   // arrange
-    //   when(mockHttpClient
-    //           .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
-    //       .thenAnswer((_) async => http.Response('Not Found', 404));
-    //   // act
-    //   final call = dataSource.searchMovies(tQuery, "movie");
-    //   // assert
-    //   expect(() => call, throwsA(isA<ServerException>()));
-    // });
-  });
+  // test('should throw ServerException when response code is other than 200',
+  //     () async {
+  //   // arrange
+  //   when(mockHttpClient
+  //           .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
+  //       .thenAnswer((_) async => http.Response('Not Found', 404));
+  //   // act
+  //   final call = dataSource.searchMovies(tQuery, "movie");
+  //   // assert
+  //   expect(() => call, throwsA(isA<ServerException>()));
+  // });
+  // });
 
-  group('search tv series', () {
-    final tSearchResult = TvResponse.fromJson({
-      "page": 1,
-      "results": [
-        {
-          "backdrop_path": "/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg",
-          "genre_ids": [14, 28],
-          "id": 92782,
-          "original_language": "en",
-          "original_name": "Ms. Marvel",
-          "overview":
-              "A great student, avid gamer, and voracious fan-fic scribe, Kamala Khan has a special affinity for superheroes, particularly Captain Marvel. However, she struggles to fit in at home and at school - that is, until she gets superpowers like the heroes shes always looked up to. Life is easier with superpowers, right?",
-          "popularity": 60.441,
-          "poster_path": "/cdkyMYdu8ao26XOBvilNzLneUg1.jpg",
-          "first_air_date": "2022-06-08",
-          "name": "Spider-Man",
-          "vote_average": 7.2,
-          "vote_count": 13507,
-          "origin_country": ["US"]
-        }
-      ],
-      "total_pages": 4,
-      "total_results": 62
-    }).tvList;
-    final tQuery = 'Marvel';
+  // group('search tv series', () {
+  //   final tSearchResult = TvResponse.fromJson({
+  //     "page": 1,
+  //     "results": [
+  //       {
+  //         "backdrop_path": "/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg",
+  //         "genre_ids": [14, 28],
+  //         "id": 92782,
+  //         "original_language": "en",
+  //         "original_name": "Ms. Marvel",
+  //         "overview":
+  //             "A great student, avid gamer, and voracious fan-fic scribe, Kamala Khan has a special affinity for superheroes, particularly Captain Marvel. However, she struggles to fit in at home and at school - that is, until she gets superpowers like the heroes shes always looked up to. Life is easier with superpowers, right?",
+  //         "popularity": 60.441,
+  //         "poster_path": "/cdkyMYdu8ao26XOBvilNzLneUg1.jpg",
+  //         "first_air_date": "2022-06-08",
+  //         "name": "Spider-Man",
+  //         "vote_average": 7.2,
+  //         "vote_count": 13507,
+  //         "origin_country": ["US"]
+  //       }
+  //     ],
+  //     "total_pages": 4,
+  //     "total_results": 62
+  //   }).tvList;
+  //   final tQuery = 'Marvel';
 
-    // test('should return list of tv series when response code is 200', () async {
-    //   // arrange
-    //   when(mockHttpClient
-    //           .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
-    //       .thenAnswer((_) async =>
-    //           http.Response(readJson('dummy_data/search_marvel_tv.json'), 200));
-    //   // act
-    //   final result = await dataSource.searchMovies(tQuery, "Tv Series");
+  // test('should return list of tv series when response code is 200', () async {
+  //   // arrange
+  //   when(mockHttpClient
+  //           .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
+  //       .thenAnswer((_) async =>
+  //           http.Response(readJson('dummy_data/search_marvel_tv.json'), 200));
+  //   // act
+  //   final result = await dataSource.searchMovies(tQuery, "Tv Series");
 
-    //   // assert
-    //   final expectedResult = result.getOrElse(() => []);
-    //   expect(expectedResult, tSearchResult);
-    // });
+  //   // assert
+  //   final expectedResult = result.getOrElse(() => []);
+  //   expect(expectedResult, tSearchResult);
+  // });
 
-    // test('should throw ServerException when response code is other than 200',
-    //     () async {
-    //   // arrange
-    //   when(mockHttpClient
-    //           .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
-    //       .thenAnswer((_) async => http.Response('Not Found', 404));
-    //   // act
-    //   final call = dataSource.searchMovies(tQuery, "Tv Series");
-    //   // assert
-    //   expect(() => call, throwsA(isA<ServerException>()));
-    // });
-  });
+  // test('should throw ServerException when response code is other than 200',
+  //     () async {
+  //   // arrange
+  //   when(mockHttpClient
+  //           .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
+  //       .thenAnswer((_) async => http.Response('Not Found', 404));
+  //   // act
+  //   final call = dataSource.searchMovies(tQuery, "Tv Series");
+  //   // assert
+  //   expect(() => call, throwsA(isA<ServerException>()));
+  // });
+  // });
 }
