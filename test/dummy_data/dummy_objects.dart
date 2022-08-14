@@ -7,6 +7,7 @@ import 'package:movies/domain/movie/movie_detail.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';
 
+
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
@@ -47,22 +48,6 @@ final testWatchlistMovie = Movie.watchlist(
   posterPath: 'posterPath',
   overview: 'overview',
 );
-
-final testMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-  movieType: MovieType.movie,
-);
-
-final testMovieMap = {
-  'id': 1,
-  'overview': 'overview',
-  'posterPath': 'posterPath',
-  'title': 'title',
-  'type': 'movie',
-};
 
 final testTvDetail = TvDetail(
   backdropPath: 'backdropPath',
