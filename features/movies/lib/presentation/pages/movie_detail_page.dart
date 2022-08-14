@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
 import 'package:common/common/state_enum.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:common/presentation/common/genre.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -29,6 +30,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       Provider.of<MovieDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("movieDetailPage"));
   }
 
   @override

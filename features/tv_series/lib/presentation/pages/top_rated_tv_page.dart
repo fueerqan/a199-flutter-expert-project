@@ -1,3 +1,4 @@
+import 'package:common/helper/analytics_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv_series/domain/entities/tv.dart';
@@ -7,6 +8,7 @@ import 'package:tv_series/presentation/widgets/tv_card_list.dart';
 class TopRatedTvPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("topRatedTvPage"));
     return Scaffold(
       appBar: AppBar(
         title: const Text('Top Rated Tv Series'),

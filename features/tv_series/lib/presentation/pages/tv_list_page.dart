@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:common/presentation/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +11,18 @@ import 'package:tv_series/presentation/bloc/popular/popular_bloc.dart';
 import 'package:tv_series/presentation/bloc/top_rated/top_rated_bloc.dart';
 
 class TvListPage extends StatelessWidget {
+  void _sendClickSearchAnalytics() async {
+    AnalyticsHelper.sendEvent(
+      "onClick",
+      "Click Search from Tv Series Page",
+      "tvSeries",
+      "click search on tv series",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("tvListPage"));
     return Scaffold(
       drawer: const CustomDrawer(currentPage: CurrentPage.tvSeries),
       appBar: AppBar(
@@ -19,6 +30,7 @@ class TvListPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              _sendClickSearchAnalytics();
               Navigator.pushNamed(context, searchRoute);
             },
             icon: const Icon(Icons.search),

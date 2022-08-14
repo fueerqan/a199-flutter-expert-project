@@ -1,4 +1,5 @@
 import 'package:common/common/state_enum.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:movies/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:movies/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
     Future.microtask(() =>
         Provider.of<TopRatedMoviesNotifier>(context, listen: false)
             .fetchTopRatedMovies());
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("topRatedMoviePage"));
   }
 
   @override

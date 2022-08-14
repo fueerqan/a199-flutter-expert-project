@@ -1,6 +1,7 @@
 
 import 'package:common/common/state_enum.dart';
 import 'package:common/common/utils.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:movies/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     Future.microtask(() =>
         Provider.of<WatchlistMovieNotifier>(context, listen: false)
             .fetchWatchlistMovies());
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("watchlistPage"));
   }
 
   @override

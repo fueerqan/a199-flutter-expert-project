@@ -1,9 +1,11 @@
 import 'package:common/common/constants.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("aboutPage"));
     return Scaffold(
       body: Stack(
         children: [

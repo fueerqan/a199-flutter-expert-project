@@ -1,6 +1,7 @@
 
 import 'package:common/common/constants.dart';
 import 'package:common/common/state_enum.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:movies/domain/movie/movie.dart';
 import 'package:movies/presentation/widgets/movie_card_list.dart';
@@ -17,6 +18,8 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("searchPage"));
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Search'),

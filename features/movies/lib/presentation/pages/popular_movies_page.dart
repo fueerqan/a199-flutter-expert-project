@@ -1,4 +1,5 @@
 import 'package:common/common/state_enum.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:movies/presentation/provider/popular_movies_notifier.dart';
 import 'package:movies/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
     Future.microtask(() =>
         Provider.of<PopularMoviesNotifier>(context, listen: false)
             .fetchPopularMovies());
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("popularMoviePage"));
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
 import 'package:common/common/routes.dart';
+import 'package:common/helper/analytics_helper.dart';
 import 'package:common/presentation/common/genre.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ class TvDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => AnalyticsHelper.sendOpenPageAnalytics("tvDetailPage"));
     return Scaffold(
       body: BlocProvider(
         create: (_) => TvDetailBloc()..add(TvDetailFetchDataEvent(tvId: id)),

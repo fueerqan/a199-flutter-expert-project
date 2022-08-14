@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/constants.dart';
+import 'package:common/common/routes.dart';
 import 'package:common/common/state_enum.dart';
+import 'package:common/helper/analytics_helper.dart';
+import 'package:common/presentation/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/domain/movie/movie.dart';
 import 'package:movies/presentation/provider/movie_list_notifier.dart';
 import 'package:provider/provider.dart';
-import 'package:common/common/routes.dart';
-import 'package:common/presentation/widgets/custom_drawer.dart';
 
 class HomeMoviePage extends StatefulWidget {
   @override
@@ -22,6 +23,17 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           ..fetchNowPlayingMovies()
           ..fetchPopularMovies()
           ..fetchTopRatedMovies());
+    Future.microtask(
+        () => AnalyticsHelper.sendOpenPageAnalytics("movieListPage"));
+  }
+
+  void _sendClickSearchAnalytics() async {
+    AnalyticsHelper.sendEvent(
+      "onClick",
+      "Click Search from Movie Page",
+      "movies",
+      "click search on movie",
+    );
   }
 
   @override
@@ -33,6 +45,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
+              _sendClickSearchAnalytics();
               Navigator.pushNamed(context, searchRoute);
             },
             icon: const Icon(Icons.search),
