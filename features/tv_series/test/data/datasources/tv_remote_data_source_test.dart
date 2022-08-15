@@ -11,7 +11,7 @@ import 'package:tv_series/data/datasources/tv_remote_data_source.dart';
 import 'package:tv_series/data/models/tv_detail_model.dart';
 import 'package:tv_series/data/models/tv_response.dart';
 
-import '../../../../../../a199-flutter-expert-project/test/json_reader.dart';
+import '../../json_reader.dart';
 import 'tv_remote_data_source_test.mocks.dart';
 
 @GenerateMocks([

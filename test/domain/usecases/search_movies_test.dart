@@ -6,6 +6,7 @@ import 'package:movies/domain/movie/movie.dart';
 
 import '../../helpers/test_helper.mocks.dart';
 
+
 void main() {
   late SearchMovies usecase;
   late MockSearchRepository mockMovieRepository;

@@ -10,7 +10,7 @@ import 'package:movies/data/datasource/movie_remote_data_source.dart';
 import 'package:movies/data/models/movie_detail_model.dart';
 import 'package:movies/data/models/movie_response.dart';
 
-import '../../../../../test/json_reader.dart';
+import '../../json_reader.dart';
 import 'movie_remote_data_source_test.mocks.dart';
 
 @GenerateMocks([
